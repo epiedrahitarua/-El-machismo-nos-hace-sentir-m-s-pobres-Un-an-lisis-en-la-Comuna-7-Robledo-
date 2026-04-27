@@ -7,7 +7,7 @@
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #f0f2f5; /* Fondo gris claro profesional */
+            background-color: #f0f2f5;
             color: #333;
             margin: 0;
             padding: 0;
@@ -19,10 +19,10 @@
 
         .main-container {
             background-color: #ffffff;
-            max-width: 850px;
+            max-width: 900px;
             width: 100%;
             margin: 2em;
-            padding: 3em;
+            padding: 3.5em;
             box-shadow: 0 10px 30px rgba(0,0,0,0.1);
             border-radius: 12px;
         }
@@ -31,68 +31,73 @@
             text-align: center;
             margin-bottom: 2.5em;
             border-bottom: 2px solid #eee;
-            padding-bottom: 1.5em;
+            padding-bottom: 2em;
         }
 
         header h1 {
             color: #003366;
-            font-size: 2.4em;
+            font-size: 2.6em;
             margin: 0.4em 0;
+            line-height: 1.2;
         }
 
         .status-badge {
             display: inline-block;
             background-color: #28a745;
             color: white;
-            padding: 0.4em 1em;
+            padding: 0.4em 1.2em;
             border-radius: 50px;
             font-weight: bold;
             font-size: 0.85em;
             text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
         h2 {
             color: #003366;
             border-left: 6px solid #003366;
             padding-left: 15px;
-            margin-top: 2em;
-            font-size: 1.6em;
+            margin-top: 2.5em;
+            font-size: 1.8em;
         }
 
         p {
-            line-height: 1.7;
-            margin-bottom: 1.2em;
-            font-size: 1.05em;
+            line-height: 1.8;
+            margin-bottom: 1.5em;
+            font-size: 1.1em;
+            text-align: justify;
         }
 
         .problem-callout {
             background-color: #fff5f5;
             border-left: 6px solid #CC0000;
-            padding: 1.5em;
-            margin: 2em 0;
+            padding: 2em;
+            margin: 2.5em 0;
             border-radius: 0 8px 8px 0;
         }
 
         .problem-callout h3 {
             color: #CC0000;
             margin-top: 0;
-            font-size: 1.3em;
+            font-size: 1.4em;
         }
 
         ul {
             padding-left: 1.5em;
+            margin-bottom: 2em;
         }
 
         li {
-            margin-bottom: 1em;
-            line-height: 1.6;
+            margin-bottom: 1.2em;
+            line-height: 1.7;
+            font-size: 1.05em;
         }
 
         .highlight-red { color: #CC0000; font-weight: bold; }
         .highlight-blue { color: #003366; font-weight: bold; }
 
         .table-container {
-            margin: 2em 0;
+            margin: 2.5em 0;
             overflow-x: auto;
         }
 
@@ -108,7 +113,7 @@
         }
 
         table th, table td {
-            padding: 14px;
+            padding: 16px;
             border: 1px solid #ddd;
             text-align: left;
         }
@@ -117,11 +122,12 @@
 
         .download-btn {
             display: inline-block;
-            padding: 8px 15px;
-            border-radius: 5px;
+            padding: 10px 20px;
+            border-radius: 6px;
             text-decoration: none;
             font-weight: bold;
             transition: 0.3s;
+            text-align: center;
         }
 
         .btn-red { background-color: #CC0000; color: white !important; }
@@ -129,16 +135,16 @@
 
         footer {
             text-align: center;
-            margin-top: 4em;
+            margin-top: 5em;
             border-top: 1px solid #eee;
-            padding-top: 2em;
-            color: #777;
-            font-size: 0.95em;
+            padding-top: 2.5em;
+            color: #666;
+            font-size: 1em;
         }
 
         @media (max-width: 768px) {
-            .main-container { margin: 1em; padding: 1.5em; }
-            header h1 { font-size: 1.8em; }
+            .main-container { margin: 1em; padding: 2em; }
+            header h1 { font-size: 2em; }
         }
     </style>
 </head>
@@ -148,62 +154,69 @@
     <header>
         <img src="https://img.shields.io/badge/Escuela-Finanzas_Economía_y_Gobierno-003366?style=for-the-badge&logo=google-scholar&logoColor=white" alt="EAFIT">
         <h1> ¿El machismo nos hace sentir más pobres?</h1>
-        <p>Análisis de percepción económica en la Comuna 7 (Robledo)</p>
+        <p>Un estudio econométrico sobre la percepción del bienestar en la <b>Comuna 7 (Robledo)</b></p>
         <br>
         <span class="status-badge">Investigación Académica</span>
     </header>
 
     <main>
         <section>
-            <h2>📝 Introducción y Problemática</h2>
-            <p>En Medellín, solemos hablar de la economía en términos de empleo e inversión, pero existe un factor invisible: <b>la cultura de género</b>. Esta investigación analiza cómo el machismo actúa como un determinante estructural del bienestar material en la <b>Comuna 7 (Robledo)</b>.</p>
+            <h2>📝 Introducción y Marco Teórico</h2>
+            <p>En el análisis económico convencional, el bienestar suele medirse a través de variables tangibles como el ingreso, el empleo o el nivel educativo. Sin embargo, en ciudades como <b>Medellín</b>, existe un determinante estructural invisible: <b>la cultura de género</b>. Este estudio analiza cómo las normas culturales y las estructuras de poder intra-hogareño moldean la percepción de suficiencia material de los habitantes de <b>Robledo</b>.</p>
+
+            <p>La desigualdad económica entre hombres y mujeres no es un fenómeno aislado; se alimenta de prácticas sociales que reproducen la subordinación femenina. <b>Galindo-Silva y Herrera-Idárraga (2023)</b> documentan que, a pesar de décadas de reformas legales, persiste una brecha estructural donde los hombres mantienen salarios y posiciones de liderazgo superiores, incluso cuando las mujeres registran niveles educativos más altos. Esta paradoja se explica por dinámicas culturales donde el hombre tiende a conservar actitudes tradicionales sobre quién toma las decisiones financieras en casa.</p>
 
             <div class="problem-callout">
-                <h3>🔴 No es solo cultura, es dinero</h3>
-                <p>Investigaciones como las de <b>Galindo-Silva y Herrera-Idárraga (2023)</b> documentan una paradoja: aunque las mujeres en Colombia registran mayores niveles educativos, persiste una brecha salarial y de liderazgo.</p>
-                <p>La <b>Encuesta Nacional de Uso del Tiempo (ENUT, 2024-2025)</b> revela el motor de esta desigualdad: el <b>90.0% de las mujeres</b> realiza trabajo no remunerado, dedicándole en promedio <b>7 horas 35 minutos diarios</b>. Esta distribución desigual reproduce lo que <b>Cuesta (2006)</b> denomina <i>"machismo allocation"</i>: el hombre retiene los excedentes del ingreso mientras la mujer aporta trabajo no remunerado, limitando su autonomía.</p>
+                <h3>🔴 La lógica del "Machismo Allocation"</h3>
+                <p>Este desequilibrio tiene consecuencias materiales concretas. La <b>Encuesta Nacional de Uso del Tiempo (ENUT, 2024-2025)</b> muestra que el <b>90.0% de las mujeres</b> realizó trabajo no remunerado (frente al 65.5% de los hombres), dedicándole en promedio <b>7 horas 35 minutos diarios</b>.</p>
+                <p>Esta distribución desigual reproduce lo que <b>Cuesta (2006)</b> denominó <i>"machismo allocation"</i>: los hombres retienen los excedentes del ingreso mientras las mujeres contribuyen con trabajo que no se paga. Esto profundiza la dependencia económica y limita la capacidad de los hogares para reportar estabilidad financiera.</p>
             </div>
         </section>
 
         <section>
             <h2><span style="color: #003366;">📊 1. Hallazgos del Modelo Econométrico</span></h2>
-            <p>Utilizando un <b>Modelo de Probabilidad Lineal (MPL)</b> con errores robustos, analizamos la probabilidad de reportar ingresos altos (promedio muestral del <b>62.2%</b>).</p>
+            <p>Utilizando un <b>Modelo de Probabilidad Lineal (MPL)</b> sobre datos de la <b>Encuesta de Calidad de Vida</b>, analizamos los factores que afectan la probabilidad de reportar un ingreso alto o estable (promedio muestral del <b>62.2%</b>). Los resultados dibujan un patrón donde las creencias de género impactan directamente el bienestar:</p>
+            
             <ul>
-                <li><span class="highlight-red">Reconocimiento del Machismo (–0.084):</span> Percibir una sociedad machista reduce en <b>8.4 puntos porcentuales</b> la probabilidad de bienestar.</li>
-                <li><span class="highlight-blue">Liderazgo Masculino (+0.162):</span> La creencia en el liderazgo político masculino se asocia a un aumento de <b>16.2 pp</b> en la probabilidad de ingreso alto.</li>
-                <li><span class="highlight-red">Educación Femenina (–0.122):</span> Valorar menos la educación de la mujer reduce la probabilidad de éxito financiero en <b>12.2 pp</b>.</li>
+                <li><span class="highlight-red">Percepción de Sociedad Machista (–0.084):</span> El reconocimiento subjetivo de las desigualdades sistémicas se asocia con una reducción de <b>8.4 puntos porcentuales</b> en la probabilidad de bienestar. Quienes reconocen el machismo como una realidad tienden a vivir en entornos con menor bienestar material.</li>
+                <li><span class="highlight-blue">Preferencia por Liderazgo Masculino (+0.162):</span> Creer que los hombres son mejores líderes políticos eleva la probabilidad de ingreso alto al <b>78.4%</b>. Esto no implica que el machismo genere riqueza, sino que este perfil conservador predomina en hogares de estratos altos donde las jerarquías de género no representan una amenaza material inmediata.</li>
+                <li><span class="highlight-red">Desvalorización de la Educación (–0.122):</span> Considerar que un título universitario es más importante para un hombre que para una mujer reduce la probabilidad de éxito financiero en <b>12.2 pp</b>, situándola en un crítico <b>50.0%</b>.</li>
             </ul>
+        </section>
 
-            <h2><span style="color: #003366;">📊 2. Variables de Control Clave</span></h2>
+        <section>
+            <h2><span style="color: #003366;">📊 2. Determinantes Socioeconómicos</span></h2>
+            <p>Para garantizar la robustez estadística, el modelo controla por variables materiales. La estabilidad de los coeficientes entre especificaciones sugiere que el machismo captura dimensiones que los controles convencionales no logran explicar por sí solos:</p>
+
             <div class="table-container">
                 <table>
                     <thead>
                         <tr>
                             <th>Variable</th>
-                            <th>Impacto (pp)</th>
+                            <th>Coeficiente</th>
                             <th>Interpretación Económica</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
                             <td><b>Satisfacción Económica</b></td>
-                            <td style="text-align: center; color: #003366;"><b>+36.1</b></td>
-                            <td>Predictor de bienestar más potente; refleja suficiencia percibida.</td>
+                            <td style="text-align: center; color: #003366;"><b>+0.361</b></td>
+                            <td>Es el predictor más potente; a mayor satisfacción percibida, mayor probabilidad de reportar ingresos estables.</td>
                         </tr>
                         <tr>
                             <td><b>Anticresis</b></td>
-                            <td style="text-align: center; color: #003366;"><b>+60.0</b></td>
-                            <td>Indica alta solvencia previa y capital anticipado.</td>
+                            <td style="text-align: center; color: #003366;"><b>+0.600</b></td>
+                            <td>Indica solvencia y capital acumulado, elevando la probabilidad de bienestar en 60 pp.</td>
                         </tr>
                         <tr>
                             <td><b>Ocupante de hecho</b></td>
-                            <td style="text-align: center; color: #CC0000;"><b>-53.7</b></td>
-                            <td>Factor de mayor vulnerabilidad en la tenencia de vivienda.</td>
+                            <td style="text-align: center; color: #CC0000;"><b>-0.537</b></td>
+                            <td>Representa el mayor factor de precariedad habitacional y vulnerabilidad económica en el modelo.</td>
                         </tr>
                         <tr>
                             <td><b>Estrato 4</b></td>
-                            <td style="text-align: center; color: #003366;"><b>+24.3</b></td>
-                            <td>Actúa como un blindaje socioeconómico frente a la precariedad.</td>
+                            <td style="text-align: center; color: #003366;"><b>+0.243</b></td>
+                            <td>Actúa como un blindaje estructural significativo frente a las fluctuaciones del ingreso.</td>
                         </tr>
                     </tbody>
                 </table>
@@ -211,39 +224,41 @@
         </section>
 
         <section>
-            <h2><span style="color: #CC0000;">💡 Recomendaciones de Política</span></h2>
-            <p>Cualquier estrategia de mejora de vida en la comuna debe incorporar la perspectiva de género:</p>
+            <h2><span style="color: #CC0000;">💡 Recomendaciones y Políticas de Bienestar</span></h2>
+            <p>Los resultados invitan a tratar la desigualdad de género no como una variable de contexto, sino como un <b>determinante estructural</b>. Cualquier política de reducción de pobreza en <b>Robledo</b> que ignore estas dinámicas será incompleta:</p>
+            
             <ul>
-                <li><b>Sistemas de Cuidado:</b> Implementar centros similares a las "Manzanas del Cuidado" para liberar tiempo de las mujeres.</li>
-                <li><b>Corresponsabilidad:</b> Fomentar licencias parentales transferibles para reducir la discriminación laboral.</li>
+                <li><b>Sistemas de Cuidado:</b> Replicar el modelo de las <b>"Manzanas del Cuidado"</b> de Bogotá. En escenarios como <b>Río de Janeiro</b>, el acceso a guarderías públicas incrementó el empleo femenino del <b>36% al 46%</b>.</li>
+                <li><b>Corresponsabilidad Laboral:</b> Implementar licencias parentales transferibles (modelo Uruguay) para reducir la discriminación en la contratación y promover la equidad intra-hogareña.</li>
+                <li><b>Eje Articulador:</b> La perspectiva de género debe ser el eje de la política social en los barrios de mayor precariedad de la comuna.</li>
             </ul>
         </section>
 
         <section>
-            <h2><span style="color: #003366;">📂 Recursos del Proyecto</span></h2>
+            <h2><span style="color: #003366;">📂 Recursos y Material Técnico</span></h2>
             <div class="table-container">
                 <table>
                     <thead>
                         <tr>
                             <th>Recurso</th>
-                            <th>Descripción</th>
+                            <th>Contenido</th>
                             <th>Acceso</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
-                            <td><b>📄 Documento Final</b></td>
-                            <td>Investigación completa en PDF.</td>
+                            <td><b>📄 Documento de Investigación</b></td>
+                            <td>Paper completo en PDF con metodología y pruebas de robustez.</td>
                             <td style="text-align: center;"><a href="https://github.com/user-attachments/files/27107993/Arenas_Gomez_Piedrahita_R2.pdf" class="download-btn btn-red">PDF</a></td>
                         </tr>
                         <tr>
-                            <td><b>📊 Base de Datos</b></td>
-                            <td>Dataset final (CSV) - ECV Medellín.</td>
+                            <td><b>📊 Datos del Estudio</b></td>
+                            <td>Dataset final (CSV) procesado para el análisis econométrico.</td>
                             <td style="text-align: center;"><a href="TU_URL_DE_DATOS" class="download-btn btn-blue">DATOS</a></td>
                         </tr>
                         <tr>
-                            <td><b>💻 Código Fuente</b></td>
-                            <td>Script de  R del modelo.</td>
+                            <td><b>💻 Código Econométrico</b></td>
+                            <td>Script reproducible de R con los modelos MPL.</td>
                             <td style="text-align: center;"><a href="TU_URL_DE_CODIGO" class="download-btn btn-blue">CÓDIGO</a></td>
                         </tr>
                     </tbody>
@@ -254,7 +269,7 @@
 
     <footer>
         <p><b>Autores:</b> Maria Valentina Arenas Barbosa, Sandra Patricia Gómez, Emmanuel Piedrahita Rua</p>
-        <p>Econometría II - Universidad EAFIT</p>
+        <p><b>Econometría II</b> - Escuela de Finanzas, Economía y Gobierno - <b>Universidad EAFIT</b></p>
         <br>
         <img src="https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub.com%2Fepiedrahitarua%2FReto-2-Econometria&count_bg=%23003366&title_bg=%23555555&icon=&icon_color=%23E7E7E7&title=Visitas&edge_flat=false" alt="Visitas">
     </footer>
