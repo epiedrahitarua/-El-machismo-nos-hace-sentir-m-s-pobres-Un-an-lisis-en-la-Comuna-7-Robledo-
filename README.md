@@ -52,7 +52,7 @@ Utilizando un **Modelo de Probabilidad Lineal (MPL)** con errores robustos, anal
       <td style="padding: 10px; border: 1px solid #ddd;">Indica alta solvencia previa y capacidad de ahorro considerable.</td>
     </tr>
     <tr>
-      <td style="padding: 10px; border: 1px solid #ddd;"><b>Ocupante de hecho</b></td>
+      <td style="padding: 10px; border: 1px solid #ddd;"><b>Ocupante </b></td>
       <td style="padding: 10px; border: 1px solid #ddd; text-align: center; color: #CC0000;"><b>-53.7</b></td>
       <td style="padding: 10px; border: 1px solid #ddd;">Factor de mayor vulnerabilidad en la tenencia de vivienda.</td>
     </tr>
@@ -79,15 +79,43 @@ Cualquier estrategia de mejora de vida en la comuna debe incorporar la perspecti
 
 ---
 
-## 📂 Recursos del Proyecto
+## <span style="color: #003366;">📂 Recursos del Proyecto</span>
+
+<p>Haz clic en los enlaces para acceder al material técnico del estudio:</p>
+
 <div align="center">
-
-| Recurso | Descripción | Enlace |
-| :--- | :--- | :--- |
-| 📄 **Documento Final** | Investigación completa en PDF con metodología y resultados. | [**Descargar PDF**](https://github.com/user-attachments/files/27107993/Arenas_Gomez_Piedrahita_R2.pdf) |
-| 📊 **Base de Datos** | Dataset final (CSV) basado en la ECV Medellín. | [**Ver Datos**](TU_URL_AQUI) |
-| 💻 **Código Fuente** | Script de Stata / R con la estimación del modelo. | [**Ver Código**](TU_URL_AQUI) |
-
+<table style="border-collapse: collapse; width: 90%; font-family: sans-serif; border: 1px solid #ddd;">
+  <thead>
+    <tr style="background-color: #003366; color: white; text-align: center;">
+      <th style="padding: 12px; border: 1px solid #ddd;">Recurso</th>
+      <th style="padding: 12px; border: 1px solid #ddd;">Descripción</th>
+      <th style="padding: 12px; border: 1px solid #ddd;">Acceso</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="padding: 10px; border: 1px solid #ddd;">📄 <b>Documento Final</b></td>
+      <td style="padding: 10px; border: 1px solid #ddd;">Investigación completa en PDF con metodología y resultados.</td>
+      <td style="padding: 10px; border: 1px solid #ddd; text-align: center;">
+        <a href="https://github.com/user-attachments/files/27107993/Arenas_Gomez_Piedrahita_R2.pdf" style="color: #CC0000; font-weight: bold; text-decoration: none;">Descargar PDF</a>
+      </td>
+    </tr>
+    <tr style="background-color: #f9f9f9;">
+      <td style="padding: 10px; border: 1px solid #ddd;">📊 <b>Base de Datos</b></td>
+      <td style="padding: 10px; border: 1px solid #ddd;">Dataset final (CSV) basado en la ECV Medellín.</td>
+      <td style="padding: 10px; border: 1px solid #ddd; text-align: center;">
+        <a href="TU_URL_AQUI" style="color: #003366; font-weight: bold; text-decoration: none;">Ver Datos</a>
+      </td>
+    </tr>
+    <tr>
+      <td style="padding: 10px; border: 1px solid #ddd;">💻 <b>Código Fuente</b></td>
+      <td style="padding: 10px; border: 1px solid #ddd;">Script de Stata / R con la estimación del modelo MPL.</td>
+      <td style="padding: 10px; border: 1px solid #ddd; text-align: center;">
+        <a href="TU_URL_AQUI" style="color: #003366; font-weight: bold; text-decoration: none;">Ver Código</a>
+      </td>
+    </tr>
+  </tbody>
+</table>
 </div>
 
 ---
