@@ -1,4 +1,4 @@
-# El machismo nos hace sentir más pobres Un análisis en la Comuna 7 Robledo 
+# ¿El machismo nos hace sentir más pobres? Un análisis en la Comuna 7 Robledo 
 
 
 ## Introducción
