@@ -2,7 +2,7 @@
   <img src="https://img.shields.io/badge/Escuela-Finanzas_Economía_y_Gobierno-003366?style=for-the-badge&logo=google-scholar&logoColor=white" />
   <h1 style="color: #003366; font-size: 2.5em;">📉 ¿El machismo nos hace sentir más pobres?</h1>
   <p style="font-size: 1.2em;"><i>Un análisis econométrico sobre la percepción del bienestar y las dinámicas de género en Robledo</i></p>
-  <img src="https://img.shields.io/badge/Estatus-Investigación_Académica-green?style=flat-square" />
+  
 </div>
 
 ---
