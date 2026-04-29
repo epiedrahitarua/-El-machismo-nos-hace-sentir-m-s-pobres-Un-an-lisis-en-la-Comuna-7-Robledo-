@@ -61,9 +61,6 @@
         th { background: var(--azul-eafit); color: white; padding: 15px; text-align: left; }
         td { padding: 15px; border-bottom: 1px solid #eee; }
 
-        .img-container { text-align: center; margin: 2rem 0; }
-        .img-container img { max-width: 100%; height: auto; border-radius: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
-
         .btn { display: inline-block; padding: 10px 20px; border-radius: 8px; text-decoration: none; font-weight: 700; transition: 0.3s transform; text-align: center; font-size: 0.8rem; }
         .btn:hover { transform: translateY(-3px); }
         .btn-red { background: var(--rojo-impacto); color: white !important; }
@@ -79,8 +76,8 @@
     <a href="#inicio">Inicio</a>
     <a href="#teoria">Teoría</a>
     <a href="#modelos">Modelos</a>
-    <a href="#encuesta">Encuesta</a>
-    <a href="#recomendaciones">Recomendaciones</a>
+    <a href="#encuesta">Validación</a>
+    <a href="#recomendaciones">Políticas</a>
     <a href="#recursos">Recursos</a>
 </nav>
 
@@ -88,79 +85,71 @@
     <header>
         <img src="https://img.shields.io/badge/ESCUELA-FINANZAS_ECONOMÍA_Y_GOBIERNO-003366?style=for-the-badge" alt="EAFIT">
         <h1>¿El machismo nos hace sentir más pobres?</h1>
-        <p>Estudio de percepción en la <strong>Comuna 7 (Robledo)</strong></p>
+        <p>Un análisis econométrico en la <strong>Comuna 7 (Robledo)</strong></p>
         <span class="badge"><i class="fa-solid fa-microscope"></i> Investigación Académica 2026</span>
     </header>
 
     <section id="teoria">
-        <h2><i class="fa-solid fa-book-open"></i> Marco Teórico</h2>
-        <p>La desigualdad de género y la economía en Medellín están intrínsecamente ligadas. Galindo-Silva y Herrera-Idárraga (2023) exponen cómo las estructuras de poder intra-hogareño mantienen brechas laborales incluso ante mayores niveles educativos femeninos. Este desequilibrio se traduce en el <b>"Machismo Allocation"</b>: una carga de cuidado desproporcionada que limita el acceso autónomo a recursos y bienestar material.</p>
+        <h2><i class="fa-solid fa-book-open"></i> Introducción y Marco Teórico</h2>
+        <p>La desigualdad económica y las violencias de género son fenómenos interdependientes que se retroalimentan a través de normas culturales y estructuras de poder intra-hogareño. En Colombia, esta intersección es visible en la persistencia de brechas laborales incluso cuando las mujeres registran mayores niveles educativos. Según <strong>Galindo-Silva y Herrera-Idárraga (2023)</strong>, los hombres mantienen visiones tradicionales respecto a la toma de decisiones en el hogar, perpetuando lo que <strong>Cuesta (2006)</strong> define como <i>machismo allocation</i>: una distribución desigual donde la dependencia económica femenina se profundiza por la carga de cuidado no remunerado.</p>
     </section>
 
     <section id="modelos">
-        <h2><i class="fa-solid fa-calculator"></i> Análisis Econométrico</h2>
+        <h2><i class="fa-solid fa-calculator"></i> Análisis de los Modelos Econométricos</h2>
         
-        <h3>Modelo de Probabilidad Lineal (MPL)</h3>
-        <p>El <b>MPL</b> nos brinda una interpretación directa: cada coeficiente representa el cambio en puntos porcentuales (pp) sobre la probabilidad de reportar ingresos estables. Es nuestra base para identificar signos y significancia, aunque debemos corregir la <b>heterocedasticidad</b> (varianza no constante) para que las inferencias sean válidas.</p>
-
-        <h3>Modelo Logit (Efectos Marginales)</h3>
-        <p>Para garantizar que las probabilidades predichas se mantengan entre 0 y 1, empleamos un <b>Modelo Logit</b>. Los resultados, interpretados mediante los <b>Efectos Marginales Promedio (AME)</b>, muestran que el machismo es un canal autónomo de precariedad:</p>
+        <p>Para este ejercicio, se emplearon dos aproximaciones estadísticas que permiten entender la probabilidad de reportar bienestar financiero en Robledo. Primero, un <b>Modelo de Probabilidad Lineal (MPL)</b> sirvió como punto de referencia inicial para interpretar los coeficientes como cambios directos en puntos porcentuales (pp). No obstante, para corregir las limitaciones teóricas del MPL (como la heterocedasticidad), se estimó un <b>Modelo Logit</b>.</p>
+        
+        <p>El Modelo Logit, a través de sus <b>Efectos Marginales Promedio (AME)</b>, ofrece una visión más robusta. Los hallazgos principales demuestran que el machismo no es solo una actitud abstracta, sino un canal de precariedad material:</p>
 
         <div class="table-wrapper">
             <table>
                 <thead>
                     <tr>
-                        <th>Variable</th>
+                        <th>Variable Predictora</th>
                         <th>Impacto (AME)</th>
-                        <th>Significancia</th>
+                        <th>Interpretación</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
                         <td><strong>Percepción de Machismo</strong></td>
                         <td style="color:var(--rojo-impacto)"><strong>-8.8 pp</strong></td>
-                        <td>p = 0.025</td>
+                        <td>Reconocer el machismo estructural se asocia a una menor probabilidad de ingreso alto.</td>
                     </tr>
                     <tr>
-                        <td><strong>Liderazgo Masculino</strong></td>
+                        <td><strong>Liderazgo Político Masculino</strong></td>
                         <td style="color:var(--azul-eafit)"><strong>+17.1 pp</strong></td>
-                        <td>p < 0.001</td>
+                        <td>Sesgo presente principalmente en hogares con mayor estabilidad material.</td>
                     </tr>
                     <tr>
                         <td><strong>Sesgo Educativo (H > M)</strong></td>
                         <td style="color:var(--rojo-impacto)"><strong>-13.0 pp</strong></td>
-                        <td>p = 0.002</td>
+                        <td>Desvalorizar la educación femenina reduce drásticamente las probabilidades de bienestar.</td>
                     </tr>
                 </tbody>
             </table>
         </div>
-        <p>Con un <b>AUC de 0.7743</b>, el modelo demuestra una sólida capacidad para identificar quién pertenece al grupo de ingresos altos basándose en estas percepciones culturales.</p>
+        <p>La capacidad predictiva del modelo es sólida, con un área bajo la curva ROC (AUC) de <b>0.7743</b>, lo que valida la eficacia de estas variables para caracterizar el entorno económico de la comuna.</p>
     </section>
 
     <section id="encuesta">
-        <h2><i class="fa-solid fa-magnifying-glass-chart"></i> Validación: Resultados de la Encuesta</h2>
-        <p>Para triangular el modelo, realizamos una encuesta a <b>19 personas</b> (10 hombres y 9 mujeres). Encontramos que <b>10 de los 19 encuestados</b> perciben un nivel de machismo entre 3 y 4 en la escala, confirmando que más de la mitad de la muestra identifica estas dinámicas como una realidad sistémica.</p>
-
-        <div class="img-container">
-            <img src="grafico_genero.png" alt="Gráfico de Género">
-        </div>
-
-        <p>Además, el <b>84.2%</b> de los participantes considera que priorizar la educación del hombre afecta negativamente la economía del hogar, respaldando el coeficiente de <b>-13.0 pp</b> del modelo. Al analizar los motivos que frenan el flujo de dinero, la <b>Carga de Cuidado (73.7%)</b> y la falta de autonomía económica (47.4%) destacan como las principales barreras identificadas por la comunidad de Robledo.</p>
-
-        <div class="img-container">
-            <img src="grafico_motivos.png" alt="Gráfico de Motivos">
-        </div>
+        <h2><i class="fa-solid fa-magnifying-glass-chart"></i> Validación: Resultados Parciales del Instrumento</h2>
+        <p>Como componente de validación, se integró un instrumento de encuesta para verificar si los hallazgos del modelo cuantitativo encuentran respaldo en la percepción ciudadana. Es fundamental precisar que estos son <b>resultados parciales</b> recolectados hasta el 29 de abril de 2026, basados en una muestra de <b>19 observaciones</b> (10 hombres y 9 mujeres).</p>
+        
+        <p>Los resultados muestran que 10 de las 19 personas encuestadas manifiestan percibir un nivel de machismo situado entre los niveles 3 y 4 de la escala, confirmando que más de la mitad identifica estas dinámicas en su entorno cotidiano. Además, el <b>84.2%</b> de los participantes considera que priorizar la educación del hombre sobre la de la mujer afecta negativamente la economía del hogar, validando de forma cualitativa el coeficiente de <b>-13.0 pp</b> obtenido en la regresión.</p>
+        
+        <p>Finalmente, al explorar los motivos del freno económico, la <b>Carga de Cuidado (73.7%)</b> destaca como la barrera principal identificada por la comunidad, seguida por la falta de autonomía económica (47.4%). Estos datos refuerzan que los habitantes de Robledo perciben la desigualdad no como un hecho aislado, sino como un sistema de causas concurrentes.</p>
     </section>
 
     <section id="recomendaciones">
-        <h2><i class="fa-solid fa-lightbulb"></i> Recomendaciones de Política</h2>
-        <p>Cualquier estrategia de bienestar en la Comuna 7 debe atacar las raíces del machismo estructural:</p>
+        <h2><i class="fa-solid fa-lightbulb"></i> Conclusiones y Recomendaciones de Política</h2>
+        <p>Los resultados sugieren que el machismo en Robledo adopta formas distintas según el estrato: como reconocimiento de una desigualdad vivida en los hogares de menor ingreso, y como naturalización de jerarquías en los de mayor estabilidad. Para intervenir sobre estos factores, proponemos tres ejes articuladores:</p>
         
-        <div class="callout">
-            <p><strong>1. Manzanas del Cuidado:</strong> Siguiendo el éxito de Bogotá, integrar servicios de salud y empleo para liberar el tiempo de las mujeres en Robledo.</p>
-        </div>
-        <p><strong>2. Guarderías Públicas:</strong> Como en Río de Janeiro, donde el acceso gratuito aumentó el empleo femenino en un 10%, reduciendo la dependencia económica.</p>
-        <p><strong>3. Corresponsabilidad:</strong> Implementar licencias parentales transferibles (Modelo Uruguay) para equilibrar la toma de decisiones y reducir la discriminación laboral.</p>
+        <ul>
+            <li><strong>Sistemas de Cuidado (Modelo Bogotá):</strong> Implementar redes que integren servicios de salud y empleo para liberar el tiempo de las mujeres dedicado al trabajo doméstico no remunerado.</li>
+            <li><strong>Acceso a Primera Infancia:</strong> Basados en el modelo de Río de Janeiro, ampliar guarderías públicas gratuitas ha demostrado incrementar el empleo femenino hasta en 10 puntos porcentuales.</li>
+            <li><strong>Corresponsabilidad Parental:</strong> Adoptar licencias parentales transferibles (como en Uruguay) para reducir la discriminación laboral y equilibrar la toma de decisiones en el núcleo familiar.</li>
+        </ul>
     </section>
 
     <section id="recursos">
@@ -170,20 +159,24 @@
                 <thead>
                     <tr>
                         <th>Archivo</th>
+                        <th>Descripción</th>
                         <th>Acceso</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
                         <td><strong>Paper Completo (PDF)</strong></td>
-                        <td><a href="Arenas_Gómez_Piedrahita_R2.pdf" class="btn btn-red">DESCARGAR</a></td>
+                        <td>Metodología, resultados y análisis detallado.</td>
+                        <td><a href="Arenas_Gómez_Piedrahita_R2.pdf" class="btn btn-red">PDF</a></td>
                     </tr>
                     <tr>
-                        <td><strong>Base de Datos (ECV Modelo)</strong></td>
+                        <td><strong>Base de Datos (ECV)</strong></td>
+                        <td>Dataset de Calidad de Vida utilizado en el modelo.</td>
                         <td><a href="#" class="btn btn-blue">DATOS</a></td>
                     </tr>
                     <tr>
                         <td><strong>Código R Reproducible</strong></td>
+                        <td>Script completo para limpieza y estimación.</td>
                         <td><a href="#" class="btn btn-blue">CÓDIGO</a></td>
                     </tr>
                 </tbody>
