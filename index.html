@@ -98,6 +98,7 @@
             border-radius: 0 10px 10px 0;
         }
 
+        /* Tablas y Botones */
         .table-wrapper {
             margin: 2rem 0;
             border-radius: 10px;
@@ -109,14 +110,20 @@
         th { background: var(--azul-eafit); color: white; padding: 15px; text-align: left; }
         td { padding: 15px; border-bottom: 1px solid #eee; }
 
-        .model-box {
-            background: #fdfdfd;
-            border: 1px dashed #ccc;
-            padding: 1.5rem;
-            margin: 1rem 0;
-            font-family: 'Courier New', Courier, monospace;
-            font-size: 0.9rem;
+        .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 700;
+            transition: 0.3s transform;
+            text-align: center;
+            font-size: 0.8rem;
         }
+
+        .btn:hover { transform: translateY(-3px); }
+        .btn-red { background: var(--rojo-impacto); color: white !important; }
+        .btn-blue { background: var(--azul-eafit); color: white !important; }
 
         footer {
             text-align: center;
@@ -135,33 +142,33 @@
     <a href="#inicio">Inicio</a>
     <a href="#teoria">Teoría</a>
     <a href="#modelos">Modelos</a>
-    <a href="#encuesta">Encuesta</a>
     <a href="#recomendaciones">Recomendaciones</a>
+    <a href="#recursos">Recursos</a>
 </nav>
 
 <div class="container" id="inicio">
     <header>
         <img src="https://img.shields.io/badge/ESCUELA-FINANZAS_ECONOMÍA_Y_GOBIERNO-003366?style=for-the-badge" alt="EAFIT">
         <h1>¿El machismo nos hace sentir más pobres?</h1>
-        <p>Un análisis de la brecha estructural en la <strong>Comuna 7 (Robledo)</strong></p>
-        <span class="badge"><i class="fa-solid fa-microscope"></i> Proyecto Econometría II</span>
+        <p>Un estudio econométrico en la <strong>Comuna 7 (Robledo)</strong></p>
+        <span class="badge"><i class="fa-solid fa-microscope"></i> Investigación Académica 2026</span>
     </header>
 
     <section id="teoria">
-        <h2><i class="fa-solid fa-book-open"></i> Marco Teórico</h2>
-        <p>La desigualdad económica no es solo una brecha de salarios; se alimenta de estructuras invisibles de poder. Según <strong>Galindo-Silva y Herrera-Idárraga (2023)</strong>, persiste un deseo de mantener el poder dentro del hogar, lo que se traduce en una distribución desigual del tiempo.</p>
+        <h2><i class="fa-solid fa-book-open"></i> Marco Teórico y Contexto</h2>
+        <p>En Medellín, el bienestar suele medirse por ingresos, pero este estudio propone un determinante estructural invisible: <strong>la cultura de género</strong>. Basándonos en Galindo-Silva y Herrera-Idárraga (2023), identificamos que la brecha laboral no es solo cuestión de capital humano, sino de dinámicas de poder intra-hogareño.</p>
         
-        <p>En Robledo, esta lógica se manifiesta como <strong>"Machismo Allocation"</strong> (Cuesta, 2006): mientras las mujeres dedican un promedio de <strong>7 horas 35 minutos</strong> al trabajo no remunerado, los hombres solo dedican 3 horas 12 minutos. Esta carga limita la capacidad femenina de reportar ingresos estables.</p>
+        <p>El fenómeno del <strong>"Machismo Allocation"</strong> (Cuesta, 2006) explica cómo la distribución desigual del tiempo —donde las mujeres en Colombia dedican más del doble de horas al trabajo no remunerado— profundiza la dependencia económica. En Robledo, este contexto se agrava por ser una de las zonas con mayor concentración de violencia intrafamiliar en el departamento.</p>
     </section>
 
     <section id="modelos">
-        <h2><i class="fa-solid fa-calculator"></i> Estimación Econométrica</h2>
+        <h2><i class="fa-solid fa-calculator"></i> Análisis de los Modelos</h2>
         
         <h3>1. Modelo de Probabilidad Lineal (MPL)</h3>
-        <p>Como primer punto de referencia, utilizamos el <b>MPL</b> para obtener una aproximación inicial a los signos y la significancia. Aunque presenta limitaciones teóricas (como la heterocedasticidad), nos permitió identificar que reconocer el machismo sistémico reduce la probabilidad de ingreso alto en <b>8.4 pp</b>.</p>
+        <p>Iniciamos con un <b>MPL</b> para obtener una interpretación directa de los coeficientes. Este modelo es útil porque el coeficiente indica exactamente cuánto aumenta o disminuye la probabilidad en puntos porcentuales (pp). Por ejemplo, bajo el MPL, reconocer el machismo sistémico reduce la probabilidad de ingreso alto en <b>8.4 pp</b>. Sin embargo, este modelo presenta <b>heterocedasticidad</b> (la varianza del error no es constante) y puede arrojar probabilidades fuera del rango [0,1].</p>
 
-        <h3>2. Modelo Logit (Efectos Marginales Promedio)</h3>
-        <p>Dado que nuestra variable dependiente es dicotómica, el <b>Modelo Logit</b> resulta más adecuado. Tras calcular los Efectos Marginales Promedio (AME), observamos resultados robustos que confirman la hipótesis: el machismo actúa como un canal autónomo de desigualdad.</p>
+        <h3>2. Modelo Logit (Efectos Marginales)</h3>
+        <p>Para corregir las fallas del MPL, estimamos un <b>Modelo Logit</b>. Al ser un modelo no lineal que utiliza la función logística, garantiza que las probabilidades predichas siempre estén entre 0 y 1. Dado que sus coeficientes directos no son interpretables como cambios en probabilidad, utilizamos los <b>Efectos Marginales Promedio (AME)</b>:</p>
 
         <div class="table-wrapper">
             <table>
@@ -169,60 +176,80 @@
                     <tr>
                         <th>Variable</th>
                         <th>Impacto (AME)</th>
-                        <th>Interpretación</th>
+                        <th>Significancia</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
                         <td><strong>Percepción de Machismo</strong></td>
                         <td style="color:var(--rojo-impacto)"><strong>-8.8 pp</strong></td>
-                        <td>Detectar machismo sistémico se asocia a una menor probabilidad de ingreso alto.</td>
+                        <td>p = 0.025 *</td>
                     </tr>
                     <tr>
                         <td><strong>Creencia: Hombre Líder</strong></td>
                         <td style="color:var(--azul-eafit)"><strong>+17.1 pp</strong></td>
-                        <td>Este sesgo actúa como marcador en hogares de mayor estabilidad material.</td>
+                        <td>p < 0.001 ***</td>
                     </tr>
                     <tr>
                         <td><strong>Título Univ. (Hombre > Mujer)</strong></td>
                         <td style="color:var(--rojo-impacto)"><strong>-13.0 pp</strong></td>
-                        <td>Desvalorizar la educación femenina es el mayor freno detectado para el éxito del hogar.</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Satisfacción Económica</strong></td>
-                        <td style="color:var(--azul-eafit)"><strong>+34.1 pp</strong></td>
-                        <td>Predictor principal de suficiencia material en la muestra.</td>
+                        <td>p = 0.002 **</td>
                     </tr>
                 </tbody>
             </table>
         </div>
-
-        <div class="callout">
-            <p><i class="fa-solid fa-circle-info"></i> <strong>Nota Técnica:</strong> El área bajo la curva ROC (AUC) de <b>0.7743</b> indica que el modelo tiene una buena capacidad discriminatoria para predecir quién pertenece al grupo de ingresos altos en la comuna.</p>
-        </div>
-    </section>
-
-    <section id="encuesta">
-        <h2><i class="fa-solid fa-magnifying-glass-chart"></i> Validación: La Encuesta</h2>
-        <p>Para triangular estos datos, procesamos una encuesta parcial (N=19) que respalda cualitativamente al modelo. Encontramos que el <b>52.9%</b> de los habitantes detecta niveles claros de machismo y el <b>84.2%</b> coincide en que priorizar la educación del hombre afecta negativamente la economía familiar, validando el coeficiente de -13.0 pp identificado por la regresión.</p>
+        <p>La curva ROC con un <b>AUC de 0.7743</b> confirma que el modelo tiene una capacidad del 77.4% para predecir correctamente el nivel de bienestar de los habitantes basándose en estas variables.</p>
     </section>
 
     <section id="recomendaciones">
         <h2><i class="fa-solid fa-lightbulb"></i> Recomendaciones de Política</h2>
-        <p>Los hallazgos demuestran que las políticas de reducción de pobreza que ignoren las dinámicas de género serán incompletas. Basados en la evidencia comparada, proponemos:</p>
+        <p>Nuestros hallazgos sugieren que cualquier estrategia de reducción de pobreza en Robledo será insuficiente si no incorpora la perspectiva de género. Proponemos tres ejes de acción basados en evidencia comparada:</p>
         
-        <ul>
-            <li><strong>Manzanas del Cuidado:</strong> Siguiendo el modelo de Bogotá, integrar servicios de salud y empleo para liberar tiempo a las mujeres.</li>
-            <li><strong>Guarderías Públicas:</strong> Como en Río de Janeiro, donde el acceso gratuito incrementó el empleo materno del 36% al 46%.</li>
-            <li><strong>Licencias Parentales:</strong> Aplicar el modelo uruguayo de licencias transferibles para reducir la discriminación en la contratación femenina.</li>
-            <li><strong>Enfoque en Robledo:</strong> Intervenir los estratos bajos donde el machismo se vive como una barrera material de acceso.</li>
-        </ul>
+        <div class="callout">
+            <p><strong>1. Redes de Cuidado (Modelo Bogotá):</strong> Implementar "Manzanas del Cuidado" en Robledo para liberar tiempo a las mujeres, permitiéndoles acceder al mercado laboral formal y reducir el impacto del trabajo no remunerado.</p>
+        </div>
+        <p><strong>2. Servicios de Guardería (Caso Río de Janeiro):</strong> La evidencia muestra que el acceso gratuito a guarderías en sectores vulnerables aumentó el empleo materno en un 10%. Es una herramienta clave para romper la dependencia económica.</p>
+        <p><strong>3. Licencias Parentales (Modelo Uruguay):</strong> Fomentar licencias transferibles para hombres y mujeres, lo que reduce el sesgo de contratación contra las mujeres y promueve la corresponsabilidad en el hogar.</p>
+    </section>
+
+    <section id="recursos">
+        <h2><i class="fa-solid fa-folder-open"></i> Recursos del Proyecto</h2>
+        <div class="table-wrapper">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Archivo</th>
+                        <th>Descripción</th>
+                        <th>Descarga</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Documento PDF</strong></td>
+                        <td>Paper completo con metodología detallada.</td>
+                        <td><a href="Arenas_Gómez_Piedrahita_R2.pdf" class="btn btn-red">PDF</a></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Base de Datos</strong></td>
+                        <td>Dataset CSV con las 19 observaciones.</td>
+                        <td><a href="#" class="btn btn-blue">DATOS</a></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Código R</strong></td>
+                        <td>Script reproducible (Limpieza y Modelos).</td>
+                        <td><a href="#" class="btn btn-blue">CÓDIGO</a></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     </section>
 </div>
 
 <footer>
     <p><strong>Autores:</strong> Maria Valentina Arenas, Sandra Patricia Gómez, Emmanuel Piedrahita Rua</p>
     <p>Escuela de Finanzas, Economía y Gobierno | <strong>Universidad EAFIT</strong></p>
+    <br>
+    <img src="https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub.com%2Fepiedrahitarua%2FReto-2-Econometria&count_bg=%23003366&title_bg=%23555555&icon=&icon_color=%23E7E7E7&title=Visitas&edge_flat=false" alt="Visitas">
 </footer>
 
 </body>
