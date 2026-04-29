@@ -25,7 +25,6 @@
             line-height: 1.6;
         }
 
-        /* Navegación */
         nav {
             background: var(--azul-eafit);
             padding: 1rem;
@@ -48,7 +47,7 @@
         nav a:hover { color: #ffcc00; }
 
         .container {
-            max-width: 900px;
+            max-width: 950px;
             margin: 3rem auto;
             background: var(--blanco);
             padding: 4rem;
@@ -89,18 +88,19 @@
 
         p { margin-bottom: 1.5rem; text-align: justify; }
 
-        /* Cajas Destacadas */
         .callout {
-            background: #fff5f5;
-            border-left: 5px solid var(--rojo-impacto);
+            background: #f0f7ff;
+            border-left: 5px solid var(--azul-eafit);
             padding: 2rem;
             margin: 2.5rem 0;
             border-radius: 0 10px 10px 0;
         }
 
-        .callout h3 { color: var(--rojo-impacto); margin-top: 0; }
+        .callout-red {
+            background: #fff5f5;
+            border-left: 5px solid var(--rojo-impacto);
+        }
 
-        /* Tablas Estéticas */
         .table-wrapper {
             margin: 2rem 0;
             border-radius: 10px;
@@ -108,40 +108,24 @@
             border: 1px solid #eee;
         }
 
-        table {
-            width: 100%;
-            border-collapse: collapse;
-        }
+        table { width: 100%; border-collapse: collapse; }
+        th { background: var(--azul-eafit); color: white; padding: 15px; text-align: left; }
+        td { padding: 15px; border-bottom: 1px solid #eee; }
 
-        th {
-            background: var(--azul-eafit);
-            color: white;
-            padding: 15px;
-            text-align: left;
-        }
-
-        td {
-            padding: 15px;
-            border-bottom: 1px solid #eee;
-            transition: 0.2s;
-        }
-
-        tr:hover td { background: #f0f7ff; }
-
-        /* Botones */
-        .btn {
-            display: inline-block;
-            padding: 10px 20px;
-            border-radius: 8px;
-            text-decoration: none;
-            font-weight: 700;
-            transition: 0.3s transform;
+        .grafico-box {
             text-align: center;
+            margin: 2rem 0;
+            padding: 1rem;
+            background: #fafafa;
+            border-radius: 10px;
         }
 
-        .btn:hover { transform: translateY(-3px); }
-        .btn-red { background: var(--rojo-impacto); color: white !important; }
-        .btn-blue { background: var(--azul-eafit); color: white !important; }
+        .grafico-box img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 5px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
 
         footer {
             text-align: center;
@@ -152,20 +136,15 @@
         }
 
         strong { color: #000; font-weight: 700; }
-
-        @media (max-width: 768px) {
-            .container { padding: 2rem; margin: 1rem; }
-            h1 { font-size: 2rem; }
-        }
     </style>
 </head>
 <body>
 
 <nav>
     <a href="#inicio">Inicio</a>
-    <a href="#teoria">Teoría</a>
-    <a href="#hallazgos">Resultados</a>
-    <a href="#politica">Políticas</a>
+    <a href="#hallazgos">Modelo</a>
+    <a href="#encuesta">Encuesta</a>
+    <a href="#conclusiones">Conclusiones</a>
     <a href="#recursos">Recursos</a>
 </nav>
 
@@ -174,94 +153,99 @@
         <img src="https://img.shields.io/badge/ESCUELA-FINANZAS_ECONOMÍA_Y_GOBIERNO-003366?style=for-the-badge" alt="EAFIT">
         <h1>¿El machismo nos hace sentir más pobres?</h1>
         <p>Un estudio de percepción económica en la <strong>Comuna 7 (Robledo)</strong></p>
-        <span class="badge"><i class="fa-solid fa-microscope"></i> Investigación Académica</span>
+        <span class="badge"><i class="fa-solid fa-microscope"></i> Investigación Actualizada 2026</span>
     </header>
 
     <section id="teoria">
-        <h2><i class="fa-solid fa-book-open"></i> Introducción y Marco Teórico</h2>
-        <p>En el análisis económico de <strong>Medellín</strong>, el bienestar suele medirse por ingresos brutos. Sin embargo, este estudio de <strong>Econometría II</strong> propone que existe un determinante estructural invisible: <strong>la cultura de género</strong>.</p>
-        
-        <p>La desigualdad no es solo una brecha de salarios; se alimenta de estructuras de poder intra-hogareño. Según <strong>Galindo-Silva y Herrera-Idárraga (2023)</strong>, persiste una paradoja: las mujeres registran mayores niveles educativos pero enfrentan una brecha de liderazgo sistémica.</p>
-
-        <div class="callout">
-            <h3><i class="fa-solid fa-clock-rotate-left"></i> La lógica del "Machismo Allocation"</h3>
-            <p>Datos de la <strong>ENUT (2024-2025)</strong> revelan que el <strong>90.0% de las mujeres</strong> realiza trabajo no remunerado, dedicando <strong>7 horas 35 minutos diarios</strong> (frente a las 3 horas de los hombres). Esto reproduce lo que <strong>Cuesta (2006)</strong> denomina como el acaparamiento masculino de excedentes.</p>
-        </div>
+        <h2><i class="fa-solid fa-book-open"></i> Introducción</h2>
+        <p>Este estudio propone que la <strong>cultura de género</strong> actúa como un determinante estructural del bienestar en Medellín. No se trata solo de ingresos; se trata de cómo las estructuras de poder intra-hogareño y la carga de cuidado invisible afectan la percepción de prosperidad en los habitantes de Robledo.</p>
     </section>
 
     <section id="hallazgos">
-        <h2><i class="fa-solid fa-chart-line"></i> Hallazgos Econométricos</h2>
-        <p>Utilizando un <strong>Modelo de Probabilidad Lineal (MPL)</strong>, evaluamos la probabilidad de bienestar financiero (media: <strong>62.2%</strong>):</p>
+        <h2><i class="fa-solid fa-chart-line"></i> Hallazgos del Nuevo Modelo</h2>
+        <p>Tras ajustar el modelo logit, identificamos que los sesgos de género tienen una correlación directa y medible con la probabilidad de bienestar financiero:</p>
         
-        <ul>
-            <li><span style="color:var(--rojo-impacto)"><strong>Impacto Negativo (-8.4 pp):</strong></span> Reconocer el machismo sistémico reduce drásticamente la probabilidad de reportar estabilidad económica.</li>
-            <li><span style="color:var(--azul-eafit)"><strong>Liderazgo Masculino (+16.2 pp):</strong></span> Esta creencia predomina en hogares de estratos altos con mayor blindaje material.</li>
-            <li><span style="color:var(--rojo-impacto)"><strong>Brecha Educativa (-12.2 pp):</strong></span> Desvalorizar la educación femenina sitúa la probabilidad de éxito en un crítico <strong>50%</strong>.</li>
-        </ul>
-
         <div class="table-wrapper">
             <table>
                 <thead>
                     <tr>
-                        <th>Variable</th>
+                        <th>Variable Predictora</th>
                         <th>Impacto (pp)</th>
                         <th>Interpretación</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
-                        <td><strong>Satisfacción Económica</strong></td>
-                        <td style="color:var(--azul-eafit)"><strong>+36.1</strong></td>
-                        <td>Predictor principal de suficiencia en el hogar.</td>
+                        <td><strong>Brecha Educativa</strong></td>
+                        <td style="color:var(--rojo-impacto)"><strong>-13.0</strong></td>
+                        <td>Priorizar el estudio masculino reduce drásticamente la probabilidad de bienestar.</td>
                     </tr>
                     <tr>
-                        <td><strong>Anticresis</strong></td>
-                        <td style="color:var(--azul-eafit)"><strong>+60.0</strong></td>
-                        <td>Indicador de alta solvencia y capital acumulado.</td>
+                        <td><strong>Liderazgo Masculino</strong></td>
+                        <td style="color:var(--azul-eafit)"><strong>+17.1</strong></td>
+                        <td>Este sesgo predomina paradójicamente en hogares de mayores ingresos.</td>
                     </tr>
                     <tr>
-                        <td><strong>Ocupante de hecho</strong></td>
-                        <td style="color:var(--rojo-impacto)"><strong>-53.7</strong></td>
-                        <td>Máximo factor de vulnerabilidad detectado.</td>
+                        <td><strong>Machismo Percibido</strong></td>
+                        <td style="color:var(--rojo-impacto)"><strong>-8.4</strong></td>
+                        <td>Detectar machismo sistémico se asocia con una menor estabilidad económica.</td>
                     </tr>
                 </tbody>
             </table>
         </div>
     </section>
 
-    <section id="politica">
-        <h2><i class="fa-solid fa-lightbulb"></i> Recomendaciones</h2>
-        <p>Para mejorar la economía de Robledo, la perspectiva de género debe ser el <strong>eje articulador</strong>:</p>
-        <p><i class="fa-solid fa-check" style="color:green"></i> <strong>Manzanas del Cuidado:</strong> Liberar tiempo para el empleo formal femenino.</p>
-        <p><i class="fa-solid fa-check" style="color:green"></i> <strong>Corresponsabilidad:</strong> Licencias parentales para romper la discriminación en la contratación.</p>
+    <section id="encuesta">
+        <h2><i class="fa-solid fa-square-poll-vertical"></i> Validación mediante Encuesta</h2>
+        <p>Para triangular los resultados del modelo, se integró un instrumento de encuesta con resultados parciales al 29 de abril de 2026. La muestra procesada de <strong>19 observaciones</strong> (10 hombres y 9 mujeres) permite validar si los hallazgos cuantitativos tienen un respaldo en la mentalidad del territorio.</p>
+
+        <div class="grafico-box">
+            <img src="grafico_genero.png" alt="Distribución de Género">
+            <p><i>Gráfico 1: Composición de la muestra por género (10H / 9M).</i></p>
+        </div>
+
+        <p>Un total de <b>10 de las 19 personas encuestadas</b> manifestaron percibir un nivel de machismo situado entre los niveles 3 y 4 de la escala. Esto indica que más de la mitad de la muestra identifica dinámicas de género restrictivas en su entorno. Al segmentar por género, las mujeres reportan una percepción de 2.89 frente al 2.4 de los hombres, confirmando que la brecha es más visible para quienes la experimentan.</p>
+
+        <div class="grafico-box">
+            <img src="grafico_educacion.png" alt="Impacto de la Educación">
+            <p><i>Gráfico 2: 16 de 19 personas ven un impacto negativo al priorizar la educación del hombre.</i></p>
+        </div>
+
+        <p>La validación más sólida surge al preguntar por la educación: <b>16 de los 19 participantes</b> consideran que priorizar el estudio del hombre afecta negativamente la economía del hogar. Este respaldo del 84.2% de los encuestados da una fuerza real al coeficiente de <b>-13.0 pp</b> identificado en nuestra regresión.</p>
+
+        <div class="callout">
+            <h3>Análisis de Motivos (Selección Múltiple)</h3>
+            <p>Al explorar por qué el dinero no fluye igual en los hogares, la <strong>Carga de Cuidado (73.7%)</strong> fue el motivo más mencionado. Le siguen la falta de autonomía económica (47.4%) y el control masculino del gasto (26.3%). Esto demuestra que el problema es multidimensional.</p>
+        </div>
+    </section>
+
+    <section id="conclusiones">
+        <h2><i class="fa-solid fa-flag-checkered"></i> Conclusiones Finales</h2>
+        <p>A partir del cruce entre el modelo y la percepción ciudadana, concluimos que el machismo en Robledo no es solo un rasgo cultural, sino una barrera estructural. La coincidencia entre el coeficiente negativo del modelo y la alta detección de machismo sugiere que los roles de género limitan activamente el acceso a mejores niveles de ingreso.</p>
+        
+        <p>Identificamos que el bienestar de la comuna está anclado a la distribución del tiempo. La carga de cuidado no remunerado, señalada por la mayoría de los encuestados, explica por qué muchas familias no logran dar el salto a la estabilidad financiera, independientemente de sus capacidades técnicas.</p>
+
+        <p>Finalmente, la correspondencia entre la percepción educativa y el modelo demuestra que el análisis cuantitativo tiene una base real. La desvalorización de la educación femenina es identificada por los habitantes como un freno para la prosperidad, lo que otorga una solidez definitiva a la investigación y sus recomendaciones de política pública.</p>
     </section>
 
     <section id="recursos">
-        <h2><i class="fa-solid fa-folder-open"></i> Recursos del Proyecto</h2>
+        <h2><i class="fa-solid fa-folder-open"></i> Recursos</h2>
         <div class="table-wrapper">
             <table>
                 <thead>
                     <tr>
                         <th>Archivo</th>
-                        <th>Contenido</th>
                         <th>Acceso</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
-                        <td><strong>Documento PDF</strong></td>
-                        <td>Paper completo con metodología.</td>
-                        <td><a href="Arenas_Gómez_Piedrahita_R2.pdf" class="btn btn-red">PDF</a></td>
+                        <td><strong>Paper Completo (PDF)</strong></td>
+                        <td><a href="#" style="color:var(--rojo-impacto)">Metodología y Anexos</a></td>
                     </tr>
                     <tr>
-                        <td><strong>Base de Datos</strong></td>
-                        <td>Dataset CSV procesado.</td>
-                        <td><a href="TU_URL_DATOS" class="btn btn-blue">DATOS</a></td>
-                    </tr>
-                    <tr>
-                        <td><strong>Código Fuente</strong></td>
-                        <td>Script reproducible Stata/R.</td>
-                        <td><a href="TU_URL_CODIGO" class="btn btn-blue">CÓDIGO</a></td>
+                        <td><strong>Código R (Reproducible)</strong></td>
+                        <td><a href="#" style="color:var(--azul-eafit)">Script de Limpieza y Modelos</a></td>
                     </tr>
                 </tbody>
             </table>
@@ -272,8 +256,6 @@
 <footer>
     <p><strong>Autores:</strong> Maria Valentina Arenas, Sandra Patricia Gómez, Emmanuel Piedrahita Rua</p>
     <p>Escuela de Finanzas, Economía y Gobierno | <strong>Universidad EAFIT</strong></p>
-    <br>
-    <img src="https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub.com%2Fepiedrahitarua%2FReto-2-Econometria&count_bg=%23003366&title_bg=%23555555&icon=&icon_color=%23E7E7E7&title=Visitas&edge_flat=false" alt="Visitas">
 </footer>
 
 </body>
