@@ -35,15 +35,7 @@
             text-align: center;
         }
 
-        nav a {
-            color: white;
-            text-decoration: none;
-            margin: 0 15px;
-            font-weight: 600;
-            font-size: 0.9rem;
-            transition: 0.3s;
-        }
-
+        nav a { color: white; text-decoration: none; margin: 0 15px; font-weight: 600; font-size: 0.9rem; transition: 0.3s; }
         nav a:hover { color: #ffcc00; }
 
         .container {
@@ -56,83 +48,25 @@
         }
 
         header { text-align: center; margin-bottom: 4rem; }
-        
-        h1 {
-            font-family: 'Playfair Display', serif;
-            color: var(--azul-eafit);
-            font-size: 2.8rem;
-            margin-bottom: 0.5rem;
-        }
+        h1 { font-family: 'Playfair Display', serif; color: var(--azul-eafit); font-size: 2.8rem; margin-bottom: 0.5rem; }
+        .badge { background: #28a745; color: white; padding: 5px 15px; border-radius: 50px; font-size: 0.8rem; text-transform: uppercase; font-weight: 700; }
 
-        .badge {
-            background: #28a745;
-            color: white;
-            padding: 5px 15px;
-            border-radius: 50px;
-            font-size: 0.8rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            font-weight: 700;
-        }
-
-        h2 {
-            color: var(--azul-eafit);
-            font-size: 1.8rem;
-            border-bottom: 2px solid #eee;
-            padding-bottom: 0.5rem;
-            margin-top: 3rem;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
+        h2 { color: var(--azul-eafit); font-size: 1.8rem; border-bottom: 2px solid #eee; padding-bottom: 0.5rem; margin-top: 3rem; display: flex; align-items: center; gap: 10px; }
         h3 { color: var(--azul-eafit); margin-top: 2rem; }
-
         p { margin-bottom: 1.5rem; text-align: justify; }
 
-        .callout {
-            background: #f0f7ff;
-            border-left: 5px solid var(--azul-eafit);
-            padding: 2rem;
-            margin: 2.5rem 0;
-            border-radius: 0 10px 10px 0;
-        }
-
-        /* Tablas y Botones */
-        .table-wrapper {
-            margin: 2rem 0;
-            border-radius: 10px;
-            overflow: hidden;
-            border: 1px solid #eee;
-        }
-
+        .callout { background: #f0f7ff; border-left: 5px solid var(--azul-eafit); padding: 2rem; margin: 2.5rem 0; border-radius: 0 10px 10px 0; }
+        .table-wrapper { margin: 2rem 0; border-radius: 10px; overflow: hidden; border: 1px solid #eee; }
         table { width: 100%; border-collapse: collapse; }
         th { background: var(--azul-eafit); color: white; padding: 15px; text-align: left; }
         td { padding: 15px; border-bottom: 1px solid #eee; }
 
-        .btn {
-            display: inline-block;
-            padding: 10px 20px;
-            border-radius: 8px;
-            text-decoration: none;
-            font-weight: 700;
-            transition: 0.3s transform;
-            text-align: center;
-            font-size: 0.8rem;
-        }
-
+        .btn { display: inline-block; padding: 10px 20px; border-radius: 8px; text-decoration: none; font-weight: 700; transition: 0.3s transform; text-align: center; font-size: 0.8rem; }
         .btn:hover { transform: translateY(-3px); }
         .btn-red { background: var(--rojo-impacto); color: white !important; }
         .btn-blue { background: var(--azul-eafit); color: white !important; }
 
-        footer {
-            text-align: center;
-            padding: 4rem 0;
-            background: #f1f1f1;
-            margin-top: 5rem;
-            color: #666;
-        }
-
+        footer { text-align: center; padding: 4rem 0; background: #f1f1f1; margin-top: 5rem; color: #666; }
         strong { color: #000; font-weight: 700; }
     </style>
 </head>
@@ -142,6 +76,7 @@
     <a href="#inicio">Inicio</a>
     <a href="#teoria">Teoría</a>
     <a href="#modelos">Modelos</a>
+    <a href="#encuesta">Encuesta</a>
     <a href="#recomendaciones">Recomendaciones</a>
     <a href="#recursos">Recursos</a>
 </nav>
@@ -155,61 +90,66 @@
     </header>
 
     <section id="teoria">
-        <h2><i class="fa-solid fa-book-open"></i> Marco Teórico y Contexto</h2>
-        <p>En Medellín, el bienestar suele medirse por ingresos, pero este estudio propone un determinante estructural invisible: <strong>la cultura de género</strong>. Basándonos en Galindo-Silva y Herrera-Idárraga (2023), identificamos que la brecha laboral no es solo cuestión de capital humano, sino de dinámicas de poder intra-hogareño.</p>
-        
-        <p>El fenómeno del <strong>"Machismo Allocation"</strong> (Cuesta, 2006) explica cómo la distribución desigual del tiempo —donde las mujeres en Colombia dedican más del doble de horas al trabajo no remunerado— profundiza la dependencia económica. En Robledo, este contexto se agrava por ser una de las zonas con mayor concentración de violencia intrafamiliar en el departamento.</p>
+        <h2><i class="fa-solid fa-book-open"></i> Marco Teórico</h2>
+        <p>La desigualdad de género no es solo cultural; tiene consecuencias económicas concretas. Según Galindo-Silva y Herrera-Idárraga (2023), los hombres mantienen posiciones de liderazgo superiores incluso cuando las mujeres registran mayores niveles educativos. Esta paradoja se alimenta de dinámicas de poder intra-hogareño que Cuesta (2006) denomina <b>"Machismo Allocation"</b>: una distribución desigual donde las mujeres contribuyen con trabajo no remunerado masivo sin acceso autónomo a recursos, profundizando su dependencia económica.</p>
     </section>
 
     <section id="modelos">
-        <h2><i class="fa-solid fa-calculator"></i> Análisis de los Modelos</h2>
+        <h2><i class="fa-solid fa-calculator"></i> Estimación de los Modelos</h2>
         
-        <h3>1. Modelo de Probabilidad Lineal (MPL)</h3>
-        <p>Iniciamos con un <b>MPL</b> para obtener una interpretación directa de los coeficientes. Este modelo es útil porque el coeficiente indica exactamente cuánto aumenta o disminuye la probabilidad en puntos porcentuales (pp). Por ejemplo, bajo el MPL, reconocer el machismo sistémico reduce la probabilidad de ingreso alto en <b>8.4 pp</b>. Sin embargo, este modelo presenta <b>heterocedasticidad</b> (la varianza del error no es constante) y puede arrojar probabilidades fuera del rango [0,1].</p>
+        <h3>Modelo de Probabilidad Lineal (MPL)</h3>
+        <p>Utilizamos el <b>MPL</b> como punto de referencia inicial. Su ventaja radica en la interpretación directa de los coeficientes: nos indican el cambio exacto en puntos porcentuales (pp) sobre la probabilidad de tener ingresos altos. Sin embargo, este modelo asume que la varianza del error es constante, ignorando la <b>heterocedasticidad</b> intrínseca de los datos binarios, lo que puede invalidar las inferencias estadísticas tradicionales si no se corrigen los errores estándar.</p>
 
-        <h3>2. Modelo Logit (Efectos Marginales)</h3>
-        <p>Para corregir las fallas del MPL, estimamos un <b>Modelo Logit</b>. Al ser un modelo no lineal que utiliza la función logística, garantiza que las probabilidades predichas siempre estén entre 0 y 1. Dado que sus coeficientes directos no son interpretables como cambios en probabilidad, utilizamos los <b>Efectos Marginales Promedio (AME)</b>:</p>
+        <h3>Modelo Logit (AME)</h3>
+        <p>Para mayor robustez, empleamos un <b>Modelo Logit</b>, el cual modela la relación de manera no lineal mediante la función logística, asegurando que las probabilidades predichas se mantengan en el rango lógico de 0 a 1. Debido a su naturaleza, interpretamos los resultados mediante los <b>Efectos Marginales Promedio (AME)</b>, que capturan la heterogeneidad de la muestra:</p>
 
         <div class="table-wrapper">
             <table>
                 <thead>
                     <tr>
-                        <th>Variable</th>
+                        <th>Variable Predictora</th>
                         <th>Impacto (AME)</th>
-                        <th>Significancia</th>
+                        <th>Interpretación</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
                         <td><strong>Percepción de Machismo</strong></td>
                         <td style="color:var(--rojo-impacto)"><strong>-8.8 pp</strong></td>
-                        <td>p = 0.025 *</td>
+                        <td>Detectar machismo estructural reduce la probabilidad de estabilidad económica.</td>
                     </tr>
                     <tr>
-                        <td><strong>Creencia: Hombre Líder</strong></td>
+                        <td><strong>Liderazgo Político Masculino</strong></td>
                         <td style="color:var(--azul-eafit)"><strong>+17.1 pp</strong></td>
-                        <td>p < 0.001 ***</td>
+                        <td>Sesgo prevalente en hogares con mayor blindaje material.</td>
                     </tr>
                     <tr>
-                        <td><strong>Título Univ. (Hombre > Mujer)</strong></td>
+                        <td><strong>Título Universitario (Sesgo)</strong></td>
                         <td style="color:var(--rojo-impacto)"><strong>-13.0 pp</strong></td>
-                        <td>p = 0.002 **</td>
+                        <td>Desvalorizar la educación femenina es el mayor freno económico detectado.</td>
                     </tr>
                 </tbody>
             </table>
         </div>
-        <p>La curva ROC con un <b>AUC de 0.7743</b> confirma que el modelo tiene una capacidad del 77.4% para predecir correctamente el nivel de bienestar de los habitantes basándose en estas variables.</p>
+        <p>El modelo presenta una capacidad predictiva sólida, con un área bajo la curva ROC (AUC) de <b>0.7743</b>, lo que demuestra su eficacia para discriminar entre niveles de bienestar financiero en Robledo.</p>
+    </section>
+
+    <section id="encuesta">
+        <h2><i class="fa-solid fa-magnifying-glass-chart"></i> Validación: Resultados de la Encuesta</h2>
+        <p>Como componente de validación, se procesó una muestra parcial de <b>19 observaciones</b> (10 hombres y 9 mujeres). Los resultados respaldan cualitativamente los hallazgos del modelo: un total de 10 de las 19 personas encuestadas manifiestan percibir un nivel de machismo situado entre los niveles 3 y 4 de la escala, confirmando que la desigualdad es una realidad tangible en el territorio.</p>
+        
+        <p>Además, el <b>84.2%</b> de los participantes considera que priorizar el estudio del hombre afecta de manera negativa la economía del hogar, lo que otorga una base real al coeficiente de <b>-13.0 pp</b> obtenido en la regresión. Al explorar los motivos, la <b>Carga de Cuidado (73.7%)</b> y la falta de autonomía económica (47.4%) surgen como los principales frenos al flujo de dinero, demostrando que los habitantes ven la desigualdad como un sistema de causas concurrentes.</p>
     </section>
 
     <section id="recomendaciones">
         <h2><i class="fa-solid fa-lightbulb"></i> Recomendaciones de Política</h2>
-        <p>Nuestros hallazgos sugieren que cualquier estrategia de reducción de pobreza en Robledo será insuficiente si no incorpora la perspectiva de género. Proponemos tres ejes de acción basados en evidencia comparada:</p>
+        <p>La evidencia sugiere que las políticas de bienestar en la Comuna 7 deben integrar la perspectiva de género como eje articulador:</p>
         
         <div class="callout">
-            <p><strong>1. Redes de Cuidado (Modelo Bogotá):</strong> Implementar "Manzanas del Cuidado" en Robledo para liberar tiempo a las mujeres, permitiéndoles acceder al mercado laboral formal y reducir el impacto del trabajo no remunerado.</p>
+            <p><strong>1. Redes de Cuidado (Modelo Manzanas del Cuidado):</strong> Replicar el modelo de Bogotá para integrar servicios de salud, educación y empleo, liberando tiempo a las mujeres que hoy se diluye en labores domésticas no remuneradas.</p>
         </div>
-        <p><strong>2. Servicios de Guardería (Caso Río de Janeiro):</strong> La evidencia muestra que el acceso gratuito a guarderías en sectores vulnerables aumentó el empleo materno en un 10%. Es una herramienta clave para romper la dependencia económica.</p>
-        <p><strong>3. Licencias Parentales (Modelo Uruguay):</strong> Fomentar licencias transferibles para hombres y mujeres, lo que reduce el sesgo de contratación contra las mujeres y promueve la corresponsabilidad en el hogar.</p>
+        <p><strong>2. Empleo y Primera Infancia:</strong> Basados en la experiencia de Río de Janeiro, ampliar el acceso a guarderías públicas gratuitas puede incrementar el empleo femenino hasta en 10 puntos porcentuales, rompiendo el ciclo de dependencia.</p>
+        <p><strong>3. Corresponsabilidad:</strong> Implementar licencias parentales transferibles (Modelo Uruguay) para reducir la discriminación laboral y fomentar que la toma de decisiones económicas en el hogar sea equitativa.</p>
     </section>
 
     <section id="recursos">
@@ -220,23 +160,23 @@
                     <tr>
                         <th>Archivo</th>
                         <th>Descripción</th>
-                        <th>Descarga</th>
+                        <th>Acceso</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
-                        <td><strong>Documento PDF</strong></td>
-                        <td>Paper completo con metodología detallada.</td>
+                        <td><strong>Paper Completo</strong></td>
+                        <td>Documento con metodología y anexos.</td>
                         <td><a href="Arenas_Gómez_Piedrahita_R2.pdf" class="btn btn-red">PDF</a></td>
                     </tr>
                     <tr>
                         <td><strong>Base de Datos</strong></td>
-                        <td>Dataset.</td>
+                        <td>Dataset de Calidad de Vida (Modelo).</td>
                         <td><a href="#" class="btn btn-blue">DATOS</a></td>
                     </tr>
                     <tr>
                         <td><strong>Código R</strong></td>
-                        <td>Script reproducible (Limpieza y Modelos).</td>
+                        <td>Script reproducible de análisis descriptivo.</td>
                         <td><a href="#" class="btn btn-blue">CÓDIGO</a></td>
                     </tr>
                 </tbody>
