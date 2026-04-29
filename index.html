@@ -47,7 +47,7 @@
         nav a:hover { color: #ffcc00; }
 
         .container {
-            max-width: 950px;
+            max-width: 900px;
             margin: 3rem auto;
             background: var(--blanco);
             padding: 4rem;
@@ -60,7 +60,7 @@
         h1 {
             font-family: 'Playfair Display', serif;
             color: var(--azul-eafit);
-            font-size: 3rem;
+            font-size: 2.8rem;
             margin-bottom: 0.5rem;
         }
 
@@ -86,6 +86,8 @@
             gap: 10px;
         }
 
+        h3 { color: var(--azul-eafit); margin-top: 2rem; }
+
         p { margin-bottom: 1.5rem; text-align: justify; }
 
         .callout {
@@ -94,11 +96,6 @@
             padding: 2rem;
             margin: 2.5rem 0;
             border-radius: 0 10px 10px 0;
-        }
-
-        .callout-red {
-            background: #fff5f5;
-            border-left: 5px solid var(--rojo-impacto);
         }
 
         .table-wrapper {
@@ -112,19 +109,13 @@
         th { background: var(--azul-eafit); color: white; padding: 15px; text-align: left; }
         td { padding: 15px; border-bottom: 1px solid #eee; }
 
-        .grafico-box {
-            text-align: center;
-            margin: 2rem 0;
-            padding: 1rem;
-            background: #fafafa;
-            border-radius: 10px;
-        }
-
-        .grafico-box img {
-            max-width: 100%;
-            height: auto;
-            border-radius: 5px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        .model-box {
+            background: #fdfdfd;
+            border: 1px dashed #ccc;
+            padding: 1.5rem;
+            margin: 1rem 0;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 0.9rem;
         }
 
         footer {
@@ -142,114 +133,90 @@
 
 <nav>
     <a href="#inicio">Inicio</a>
-    <a href="#hallazgos">Modelo</a>
+    <a href="#teoria">Teoría</a>
+    <a href="#modelos">Modelos</a>
     <a href="#encuesta">Encuesta</a>
-    <a href="#conclusiones">Conclusiones</a>
-    <a href="#recursos">Recursos</a>
+    <a href="#recomendaciones">Recomendaciones</a>
 </nav>
 
 <div class="container" id="inicio">
     <header>
         <img src="https://img.shields.io/badge/ESCUELA-FINANZAS_ECONOMÍA_Y_GOBIERNO-003366?style=for-the-badge" alt="EAFIT">
         <h1>¿El machismo nos hace sentir más pobres?</h1>
-        <p>Un estudio de percepción económica en la <strong>Comuna 7 (Robledo)</strong></p>
-        <span class="badge"><i class="fa-solid fa-microscope"></i> Investigación Actualizada 2026</span>
+        <p>Un análisis de la brecha estructural en la <strong>Comuna 7 (Robledo)</strong></p>
+        <span class="badge"><i class="fa-solid fa-microscope"></i> Proyecto Econometría II</span>
     </header>
 
     <section id="teoria">
-        <h2><i class="fa-solid fa-book-open"></i> Introducción</h2>
-        <p>Este estudio propone que la <strong>cultura de género</strong> actúa como un determinante estructural del bienestar en Medellín. No se trata solo de ingresos; se trata de cómo las estructuras de poder intra-hogareño y la carga de cuidado invisible afectan la percepción de prosperidad en los habitantes de Robledo.</p>
+        <h2><i class="fa-solid fa-book-open"></i> Marco Teórico</h2>
+        <p>La desigualdad económica no es solo una brecha de salarios; se alimenta de estructuras invisibles de poder. Según <strong>Galindo-Silva y Herrera-Idárraga (2023)</strong>, persiste un deseo de mantener el poder dentro del hogar, lo que se traduce en una distribución desigual del tiempo.</p>
+        
+        <p>En Robledo, esta lógica se manifiesta como <strong>"Machismo Allocation"</strong> (Cuesta, 2006): mientras las mujeres dedican un promedio de <strong>7 horas 35 minutos</strong> al trabajo no remunerado, los hombres solo dedican 3 horas 12 minutos. Esta carga limita la capacidad femenina de reportar ingresos estables.</p>
     </section>
 
-    <section id="hallazgos">
-        <h2><i class="fa-solid fa-chart-line"></i> Hallazgos del Nuevo Modelo</h2>
-        <p>Tras ajustar el modelo logit, identificamos que los sesgos de género tienen una correlación directa y medible con la probabilidad de bienestar financiero:</p>
+    <section id="modelos">
+        <h2><i class="fa-solid fa-calculator"></i> Estimación Econométrica</h2>
         
+        <h3>1. Modelo de Probabilidad Lineal (MPL)</h3>
+        <p>Como primer punto de referencia, utilizamos el <b>MPL</b> para obtener una aproximación inicial a los signos y la significancia. Aunque presenta limitaciones teóricas (como la heterocedasticidad), nos permitió identificar que reconocer el machismo sistémico reduce la probabilidad de ingreso alto en <b>8.4 pp</b>.</p>
+
+        <h3>2. Modelo Logit (Efectos Marginales Promedio)</h3>
+        <p>Dado que nuestra variable dependiente es dicotómica, el <b>Modelo Logit</b> resulta más adecuado. Tras calcular los Efectos Marginales Promedio (AME), observamos resultados robustos que confirman la hipótesis: el machismo actúa como un canal autónomo de desigualdad.</p>
+
         <div class="table-wrapper">
             <table>
                 <thead>
                     <tr>
-                        <th>Variable Predictora</th>
-                        <th>Impacto (pp)</th>
+                        <th>Variable</th>
+                        <th>Impacto (AME)</th>
                         <th>Interpretación</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
-                        <td><strong>Brecha Educativa</strong></td>
-                        <td style="color:var(--rojo-impacto)"><strong>-13.0</strong></td>
-                        <td>Priorizar el estudio masculino reduce drásticamente la probabilidad de bienestar.</td>
+                        <td><strong>Percepción de Machismo</strong></td>
+                        <td style="color:var(--rojo-impacto)"><strong>-8.8 pp</strong></td>
+                        <td>Detectar machismo sistémico se asocia a una menor probabilidad de ingreso alto.</td>
                     </tr>
                     <tr>
-                        <td><strong>Liderazgo Masculino</strong></td>
-                        <td style="color:var(--azul-eafit)"><strong>+17.1</strong></td>
-                        <td>Este sesgo predomina paradójicamente en hogares de mayores ingresos.</td>
+                        <td><strong>Creencia: Hombre Líder</strong></td>
+                        <td style="color:var(--azul-eafit)"><strong>+17.1 pp</strong></td>
+                        <td>Este sesgo actúa como marcador en hogares de mayor estabilidad material.</td>
                     </tr>
                     <tr>
-                        <td><strong>Machismo Percibido</strong></td>
-                        <td style="color:var(--rojo-impacto)"><strong>-8.4</strong></td>
-                        <td>Detectar machismo sistémico se asocia con una menor estabilidad económica.</td>
+                        <td><strong>Título Univ. (Hombre > Mujer)</strong></td>
+                        <td style="color:var(--rojo-impacto)"><strong>-13.0 pp</strong></td>
+                        <td>Desvalorizar la educación femenina es el mayor freno detectado para el éxito del hogar.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Satisfacción Económica</strong></td>
+                        <td style="color:var(--azul-eafit)"><strong>+34.1 pp</strong></td>
+                        <td>Predictor principal de suficiencia material en la muestra.</td>
                     </tr>
                 </tbody>
             </table>
+        </div>
+
+        <div class="callout">
+            <p><i class="fa-solid fa-circle-info"></i> <strong>Nota Técnica:</strong> El área bajo la curva ROC (AUC) de <b>0.7743</b> indica que el modelo tiene una buena capacidad discriminatoria para predecir quién pertenece al grupo de ingresos altos en la comuna.</p>
         </div>
     </section>
 
     <section id="encuesta">
-        <h2><i class="fa-solid fa-square-poll-vertical"></i> Validación mediante Encuesta</h2>
-        <p>Para triangular los resultados del modelo, se integró un instrumento de encuesta con resultados parciales al 29 de abril de 2026. La muestra procesada de <strong>19 observaciones</strong> (10 hombres y 9 mujeres) permite validar si los hallazgos cuantitativos tienen un respaldo en la mentalidad del territorio.</p>
-
-        <div class="grafico-box">
-            <img src="grafico_genero.png" alt="Distribución de Género">
-            <p><i>Gráfico 1: Composición de la muestra por género (10H / 9M).</i></p>
-        </div>
-
-        <p>Un total de <b>10 de las 19 personas encuestadas</b> manifestaron percibir un nivel de machismo situado entre los niveles 3 y 4 de la escala. Esto indica que más de la mitad de la muestra identifica dinámicas de género restrictivas en su entorno. Al segmentar por género, las mujeres reportan una percepción de 2.89 frente al 2.4 de los hombres, confirmando que la brecha es más visible para quienes la experimentan.</p>
-
-        <div class="grafico-box">
-            <img src="grafico_educacion.png" alt="Impacto de la Educación">
-            <p><i>Gráfico 2: 16 de 19 personas ven un impacto negativo al priorizar la educación del hombre.</i></p>
-        </div>
-
-        <p>La validación más sólida surge al preguntar por la educación: <b>16 de los 19 participantes</b> consideran que priorizar el estudio del hombre afecta negativamente la economía del hogar. Este respaldo del 84.2% de los encuestados da una fuerza real al coeficiente de <b>-13.0 pp</b> identificado en nuestra regresión.</p>
-
-        <div class="callout">
-            <h3>Análisis de Motivos (Selección Múltiple)</h3>
-            <p>Al explorar por qué el dinero no fluye igual en los hogares, la <strong>Carga de Cuidado (73.7%)</strong> fue el motivo más mencionado. Le siguen la falta de autonomía económica (47.4%) y el control masculino del gasto (26.3%). Esto demuestra que el problema es multidimensional.</p>
-        </div>
+        <h2><i class="fa-solid fa-magnifying-glass-chart"></i> Validación: La Encuesta</h2>
+        <p>Para triangular estos datos, procesamos una encuesta parcial (N=19) que respalda cualitativamente al modelo. Encontramos que el <b>52.9%</b> de los habitantes detecta niveles claros de machismo y el <b>84.2%</b> coincide en que priorizar la educación del hombre afecta negativamente la economía familiar, validando el coeficiente de -13.0 pp identificado por la regresión.</p>
     </section>
 
-    <section id="conclusiones">
-        <h2><i class="fa-solid fa-flag-checkered"></i> Conclusiones Finales</h2>
-        <p>A partir del cruce entre el modelo y la percepción ciudadana, concluimos que el machismo en Robledo no es solo un rasgo cultural, sino una barrera estructural. La coincidencia entre el coeficiente negativo del modelo y la alta detección de machismo sugiere que los roles de género limitan activamente el acceso a mejores niveles de ingreso.</p>
+    <section id="recomendaciones">
+        <h2><i class="fa-solid fa-lightbulb"></i> Recomendaciones de Política</h2>
+        <p>Los hallazgos demuestran que las políticas de reducción de pobreza que ignoren las dinámicas de género serán incompletas. Basados en la evidencia comparada, proponemos:</p>
         
-        <p>Identificamos que el bienestar de la comuna está anclado a la distribución del tiempo. La carga de cuidado no remunerado, señalada por la mayoría de los encuestados, explica por qué muchas familias no logran dar el salto a la estabilidad financiera, independientemente de sus capacidades técnicas.</p>
-
-        <p>Finalmente, la correspondencia entre la percepción educativa y el modelo demuestra que el análisis cuantitativo tiene una base real. La desvalorización de la educación femenina es identificada por los habitantes como un freno para la prosperidad, lo que otorga una solidez definitiva a la investigación y sus recomendaciones de política pública.</p>
-    </section>
-
-    <section id="recursos">
-        <h2><i class="fa-solid fa-folder-open"></i> Recursos</h2>
-        <div class="table-wrapper">
-            <table>
-                <thead>
-                    <tr>
-                        <th>Archivo</th>
-                        <th>Acceso</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td><strong>Paper Completo (PDF)</strong></td>
-                        <td><a href="#" style="color:var(--rojo-impacto)">Metodología y Anexos</a></td>
-                    </tr>
-                    <tr>
-                        <td><strong>Código R (Reproducible)</strong></td>
-                        <td><a href="#" style="color:var(--azul-eafit)">Script de Limpieza y Modelos</a></td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
+        <ul>
+            <li><strong>Manzanas del Cuidado:</strong> Siguiendo el modelo de Bogotá, integrar servicios de salud y empleo para liberar tiempo a las mujeres.</li>
+            <li><strong>Guarderías Públicas:</strong> Como en Río de Janeiro, donde el acceso gratuito incrementó el empleo materno del 36% al 46%.</li>
+            <li><strong>Licencias Parentales:</strong> Aplicar el modelo uruguayo de licencias transferibles para reducir la discriminación en la contratación femenina.</li>
+            <li><strong>Enfoque en Robledo:</strong> Intervenir los estratos bajos donde el machismo se vive como una barrera material de acceso.</li>
+        </ul>
     </section>
 </div>
 
