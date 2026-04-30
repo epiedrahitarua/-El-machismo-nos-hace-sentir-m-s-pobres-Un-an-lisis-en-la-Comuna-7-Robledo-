@@ -1,0 +1,906 @@
+---
+title: "¿Existe una asociación entre la percepción de vivir en una sociedad machista y la probabilidad de reportar ingresos altos o estables en la Comuna de Robledo, Medellín?"
+author: "Maria Valentina Arenas Barbosa, Sandra Patricia Gómez, Emmanuel Piedrahita Rua"
+format:
+  pdf:
+    documentclass: article
+    toc: true
+    number-sections: true
+    colorlinks: true
+    papersize: letter
+    geometry: margin=2cm
+pdf-engine: pdflatex
+fontsize: 11pt
+---
+
+# Introducción
+
+Las violencias basadas en género y la desigualdad económica entre hombres y mujeres no son fenómenos independientes: se alimentan mutuamente a través de normas culturales, estructuras de poder intra hogareño y prácticas sociales que reproducen la subordinación femenina. En Colombia, esta intersección es especialmente visible. Galindo-Silva y Herrera-Idárraga (2023) documentan que, pese a décadas de reformas legales en materia de igualdad de género, persiste una brecha estructural en el mercado laboral: los hombres mantienen tasas de participación laboral, salarios y posiciones de liderazgo superiores a los de las mujeres, aun cuando ellas registran mayores niveles educativos. Esta paradoja no se explica solo por diferencias de capital humano, sino por dinámicas culturales que operan al interior de los hogares: los mismos autores encuentran que los hombres tienden a mantener visiones más igualitarias sobre el género para mujeres que no son sus parejas, pero conservan actitudes más tradicionales respecto a quien toma decisiones en el propio hogar, "suggesting a desire to maintain power within the household" (Galindo-Silva & Herrera-Idárraga, 2023).
+
+Este desequilibrio de poder tiene consecuencias económicas concretas. La Encuesta Nacional de Uso del Tiempo (ENUT, 2024-2025) muestra que el 90,0% de las mujeres realizó trabajo no remunerado (frente al 65,5% de los hombres) dedicándole en promedio 7 horas 35 minutos diarios, más del doble que los hombres (3 horas 12 minutos) (DANE, 2025). Esta distribución desigual reproduce la lógica que Cuesta (2006) denominó machismo allocation: los hombres retienen los excedentes del ingreso mientras las mujeres contribuyen con trabajo no remunerado sin acceso autónomo a recursos, lo que profundiza su dependencia económica y limita su capacidad de reportar ingresos estables o altos.
+
+Bajo este marco, el presente ejercicio analiza si la percepción de vivir en una sociedad machista (entendida como el reconocimiento subjetivo de estas desigualdades estructurales) está asociada con una menor probabilidad de reportar ingresos altos o estables en la Comuna de Robledo de Medellín. La hipótesis central es que el machismo no es solo una actitud cultural abstracta, sino que se materializa en dinámicas económicas cotidianas como el acaparamiento masculino del ingreso, relegación femenina al trabajo no remunerado, dependencia económica estructural que hacen que quienes experimentan más directamente esas desigualdades, es decir, quienes reconocen el machismo como una realidad sistémica tiendan a vivir en hogares con menor bienestar material.
+
+El análisis se sitúa en la Comuna de Robledo, en Medellín, un territorio donde predominan los estratos de escala baja y media , e inserto en el Valle de Aburrá — la subregión de Antioquia con mayor concentración de violencia intrafamiliar contra mujeres del departamento (Observatorio de Asuntos de Mujer y Género, 2024). Esta combinación de precariedad socioeconómica y contexto de alta violencia de género hace de Robledo un caso especialmente pertinente para examinar cómo las desigualdades materiales y las percepciones sobre el machismo se articulan en la vida cotidiana de sus habitantes.
+
+```{r}
+#| warning: false
+#| include: false
+library(tidyverse); library(haven); library(knitr); library(margins); library(pscl)
+library(vcdExtra); library(generalhoslem); library(ResourceSelection); library(epiDisplay)
+library(readxl); #library(summarytools);
+library(marginaleffects)
+```
+
+```{r}
+#| include: false
+library(readxl)
+df <- read_excel("base_real.xlsx")
+
+
+df[] <- lapply(df, function(x) {
+  if (is.character(x) | is.factor(x)) {
+    as.numeric(as.character(x))
+  } else {
+    x
+  }
+})
+```
+
+# Limpieza inicial y preparación de los datos
+
+```{r}
+#| include: false
+
+# Eliminar la fila 2 (la de descripciones)
+df <- df[-1, ]  
+
+# Crear ID único
+df <- df %>%
+  mutate(id_persona = row_number()) %>%
+  relocate(id_persona, .after = persona)  
+```
+
+Creación de los estratos
+
+```{r}
+df$estrato_1 <- ifelse(df$estrato == 1, 1, 0)
+df$estrato_2 <- ifelse(df$estrato == 2, 1, 0)
+df$estrato_3 <- ifelse(df$estrato == 3, 1, 0)
+df$estrato_4 <- ifelse(df$estrato == 4, 1, 0)
+df$estrato_5 <- ifelse(df$estrato == 5, 1, 0)
+df$estrato_6 <- ifelse(df$estrato == 6, 1, 0)
+```
+
+```{r}
+#| include: false
+df$sexo <- ifelse(df$sexo == 1, 1,
+                  ifelse(df$sexo == 2, 0, NA))
+
+df$leer <- ifelse(df$leer == 1, 1,
+                  ifelse(df$leer == 2, 0, NA))
+```
+
+Creación de la educación en dummy
+
+```{r}
+df$edu_max[df$edu_max %in% c(-99, -98)] <- NA
+df$educ_0 <- ifelse(df$edu_max == 0, 1, 0)
+df$educ_1 <- ifelse(df$edu_max == 1, 1, 0)
+df$educ_2 <- ifelse(df$edu_max == 2, 1, 0)
+df$educ_3 <- ifelse(df$edu_max == 3, 1, 0)
+df$educ_4 <- ifelse(df$edu_max == 4, 1, 0)
+df$educ_5 <- ifelse(df$edu_max == 5, 1, 0)
+df$educ_6 <- ifelse(df$edu_max == 6, 1, 0)
+df$educ_7 <- ifelse(df$edu_max == 7, 1, 0)
+df$educ_8 <- ifelse(df$edu_max == 8, 1, 0)
+df$educ_9 <- ifelse(df$edu_max == 9, 1, 0)
+df$educ_10 <- ifelse(df$edu_max == 10, 1, 0)
+
+```
+
+```{r}
+#| include: false
+df$pension[df$pension %in% c(-99, -98)] <- NA
+df$pension <- ifelse(df$pension == 1, 1,
+                     ifelse(df$pension %in% c(2, -88), 0, NA))
+
+```
+
+Creación de la variable vivienda
+
+```{r}
+df$vivienda_1 <- ifelse(df$vivienda == 1, 1, 0)
+df$vivienda_2 <- ifelse(df$vivienda == 2, 1, 0)
+df$vivienda_3 <- ifelse(df$vivienda == 3, 1, 0)
+df$vivienda_4 <- ifelse(df$vivienda == 4, 1, 0)
+df$vivienda_5 <- ifelse(df$vivienda == 5, 1, 0)
+df$vivienda_6 <- ifelse(df$vivienda == 6, 1, 0)
+```
+
+## Variable ingreso - manipulación
+
+```{r}
+df$ingreso <- ifelse(df$ingreso >= 5, 1,
+                ifelse(df$ingreso <= 4, 0, NA))
+```
+
+La variable de ingreso fue originalmente medida en una escala ordinal de 0 a 10 y posteriormente transformada en una variable binaria utilizando como punto de corte el valor medio de la escala. Esta decisión se fundamenta en la naturaleza de las escalas tipo Likert, en las cuales el punto medio representa una posición neutral entre valoraciones negativas y positivas (Rensis Likert, 1932).
+
+En este sentido, valores por debajo del punto medio pueden interpretarse como niveles bajos del atributo analizado, mientras que valores por encima corresponden a niveles altos. La literatura metodológica respalda la agrupación de este tipo de variables en categorías amplias con el fin de facilitar su interpretación en análisis econométricos (Geoff Norman, 2010).
+
+```{r}
+#| include: false
+df$hombre_lider[df$hombre_lider %in% c(-99, -98)] <- NA
+df$titulo_universitario[df$titulo_universitario %in% c(-99, -98)] <- NA
+df$igualdad[df$igualdad %in% c(-99, -98)] <- NA
+df$discriminacion[df$discriminacion %in% c(-99, -98)] <- NA
+df$machista[df$machista %in% c(-99, -98)] <- NA
+df$procup_alimentos[df$procup_alimentos %in% c(-99, -98)] <- NA
+df$ayuda_material[df$ayuda_material %in% c(-99, -98)] <- NA
+
+
+
+
+df$hombre_lider <- ifelse(df$hombre_lider == 1, 1,
+                          ifelse(df$hombre_lider == 2, 0, NA))
+
+df$titulo_universitario <- ifelse(df$titulo_universitario == 1, 1,
+                                  ifelse(df$titulo_universitario == 2, 0, NA))
+
+
+df$igualdad <- ifelse(df$igualdad == 1, 1,
+                      ifelse(df$igualdad == 2, 0, NA))
+
+df$discriminacion <- ifelse(df$discriminacion == 1, 1,
+                            ifelse(df$discriminacion == 2, 0, NA))
+
+
+df$machista <- ifelse(df$machista == 1, 1,
+                      ifelse(df$machista == 2, 0, NA))
+
+df$procup_alimentos <- ifelse(df$procup_alimentos == 1, 1,
+                                ifelse(df$procup_alimentos == 2, 0, NA))
+
+df$ayuda_material <- ifelse(df$ayuda_material == 1, 1,
+                           ifelse(df$ayuda_material == 2, 0, NA))
+#otras variables
+
+df$satis_life[df$satis_life %in% c(-99, -98)] <- NA
+df$confianza[df$confianza %in% c(-99, -98)] <- NA
+df$satis_economy[df$satis_economy %in% c(-99, -98)] <- NA
+
+
+
+
+
+
+df$satis_life <- ifelse(df$satis_life >= 5, 1,
+                        ifelse(df$satis_life <= 4, 0, NA))
+
+
+df$confianza <- ifelse(df$confianza >= 5, 1,
+                       ifelse(df$confianza <= 4, 0, NA))
+
+df$satis_economy <- ifelse(df$satis_economy >= 5, 1,
+                           ifelse(df$satis_economy <= 4, 0, NA))
+
+
+
+
+```
+
+```{r}
+#| include: false
+df <- na.omit(df)
+
+```
+
+# Datos y estadísticas descriptivas
+
+Como se mencionó previamente, la base de datos utilizada corresponde a la Encuesta de Calidad de Vida, restringida a observaciones de la comuna 7. A partir de esta información, se construyeron variables relevantes para el análisis, incluyendo la variable de ingreso binaria, la percepción de machismo y un conjunto de variables de control asociadas a características individuales y del hogar.
+
+La variable dependiente, ingreso, se definió como una variable dicotómica donde el valor de 1 indica hogares sin dificultades económicas (niveles medios-altos de ingreso) y 0 representa hogares con dificultades económicas. Por su parte, la variable principal explicativa, "machista", toma el valor de 1 si el individuo considera que la sociedad es machista y 0 en caso contrario.
+
+```{r}
+#| echo: false
+#| warning: false
+library(knitr)
+library(kableExtra)
+library(ggplot2)
+
+# --- 1. Tabla de Machismo ---
+df_machismo <- as.data.frame(prop.table(table(df$machista)))
+colnames(df_machismo) <- c("Percepción", "Proporción")
+df_machismo$Percepción <- c("Baja = 0", "Alta = 1")
+
+# Eliminamos html_font = "Cambria" para evitar el error en PDF
+kable(df_machismo, digits = 3, align = "c", caption = "Distribución de Machismo") %>%
+ kable_styling(latex_options = c("striped", "hold_position"))%>%
+  row_spec(0, bold = TRUE, color = "white", background = "#E45E9D")
+
+
+# --- 2. Tabla de Ingreso ---
+df_ingreso <- as.data.frame(prop.table(table(df$ingreso)))
+colnames(df_ingreso) <- c("Ingreso", "Proporción")
+df_ingreso$Ingreso <- c("Bajo = 0", "Alto = 1")
+
+kable(df_ingreso, digits = 3, align = "c", caption = "Distribución de Ingreso") %>%
+  kable_styling(latex_options = c("striped", "hold_position")) %>%
+  row_spec(0, bold = TRUE, color = "white", background = "#E45E9D")
+
+
+# --- 3. Gráfica de Ingreso ---
+ggplot(df, aes(x = factor(ingreso), fill = factor(ingreso))) + 
+  geom_bar(width = 0.6) + 
+  scale_x_discrete(labels = c("0" = "Bajo Ingreso", "1" = "Alto Ingreso")) + 
+  scale_fill_manual(values = c("#E0B0FF", "seagreen3")) + 
+  theme_minimal() + 
+  theme(legend.position = "none") + 
+  labs(title = "Distribución por Nivel de Ingreso", 
+       x = "Nivel de Ingreso", 
+       y = "Frecuencia")
+
+
+# --- 4. Gráfica de Machismo por Sexo ---
+ggplot(df, aes(x = factor(machista), fill = factor(sexo))) +
+  geom_bar(position = "dodge", width = 0.6) +
+  scale_x_discrete(labels = c("0" = "Baja percepción", "1" = "Alta percepción")) +
+  scale_fill_manual(values = c("indianred4", "#46C7C7"), 
+                    labels = c("0" = "Mujer", "1" = "Hombre")) + 
+  theme_minimal() + # Eliminamos base_family = "Cambria"
+  labs(title = "Percepción de Sociedad Machista por Sexo",
+       x = "Nivel de percepción",
+       y = "Frecuencia",
+       fill = "Sexo")
+
+```
+
+El análisis descriptivo muestra que existe una proporción significativa de individuos que perciben la sociedad como machista, lo que evidencia la relevancia de este fenómeno en el contexto local. Asimismo, la distribución del ingreso refleja la presencia de desigualdades económicas dentro de la comuna, con una fracción importante de hogares reportando dificultades para sostener su nivel de vida.
+
+```{r}
+#| echo: false
+library(knitr)
+library(kableExtra)
+
+# 1. Creamos la tabla y le ponemos nombres a las dimensiones
+tabla_data <- prop.table(table(df$ingreso, df$machista), 2)
+
+# 2. Convertimos a data frame y le damos formato pro
+as.data.frame.matrix(tabla_data) %>%
+  kbl(
+    col.names = c("Baja Percepción = 0", "Alta Percepción = 1"), 
+    caption = "Tabla Cruzada: Probabilidad de Ingreso según Percepción de Machismo",
+    align = "c",
+    digits = 3
+  ) %>%
+  add_header_above(c(" " = 1, "Percepción de Sociedad Machista" = 2)) %>% # Encabezado superior
+  column_spec(1, bold = TRUE, border_right = T) %>% # Resalta la columna de etiquetas
+  row_spec(0, bold = TRUE, color = "white", background = "#E45E9D") %>% # Color azul pro
+  # Etiquetas de las filas
+  kableExtra::footnote(general = "0 = Ingreso Bajo, 1 = Ingreso Alto")
+
+#graficaaa
+library(ggplot2)
+
+ggplot(df, aes(x = factor(machista), y = ingreso, fill = factor(machista))) +
+  # Usamos barras con bordes blancos y un ancho más estilizado
+  stat_summary(fun = mean, geom = "bar", width = 0.6, color = "white", lwd = 1) +
+  # Agregamos barras de error para que sea un gráfico científico/académico
+  stat_summary(fun.data = mean_se, geom = "errorbar", width = 0.1, color = "black") +
+  # Etiquetas de los ejes
+  scale_x_discrete(labels = c("0" = "Baja Percepción", "1" = "Alta Percepción")) +
+  # Paleta de colores: un gris suave vs un azul/violeta vibrante
+  scale_fill_manual(values = c("0" = "#FDD7E4", "1" = "#835C3B")) +
+  # Estética limpia
+  theme_minimal(base_size = 10) +
+  theme(
+    legend.position = "none",
+    panel.grid.major.x = element_blank(), # Limpiamos líneas verticales
+    plot.title = element_text(face = "bold", hjust = 0.5)
+  ) +
+  labs(
+    title = "Relación entre Machismo e Ingresos",
+    x = "¿Percibe sociedad machista?", 
+    y = "Prob. de ingreso alto (media)"
+  )
+```
+
+Al examinar la relación entre ambas variables, se observa una diferencia en la proporción de individuos con ingresos altos según su percepción de machismo. En particular, la probabilidad de pertenecer al grupo de ingresos altos varía entre quienes perciben la sociedad como machista y quienes no lo hacen, lo que sugiere la existencia de una correlación inicial entre factores culturales y condiciones económicas.
+
+```{r}
+#| echo: false
+#| message: false
+#| warning: false
+
+library(ggplot2)
+library(dplyr)
+library(tidyr)
+
+
+datos_estrato <- df %>%
+ 
+  pivot_longer(cols = starts_with("estrato_"), 
+               names_to = "Estrato", 
+               values_to = "es_de_este_estrato") %>%
+  # Nos quedamos solo donde la respuesta es 1
+  filter(es_de_este_estrato == 1) %>%
+  # Limpiamos el nombre para que solo quede el número
+  mutate(Estrato = gsub("estrato_", "", Estrato))
+
+# 2. Creamos la gráfica de distribución
+ggplot(datos_estrato, aes(x = Estrato)) +
+  geom_bar(show.legend = FALSE, fill = "wheat") + 
+  labs(title = "Distribución de la Muestra por Estrato Socioeconómico",
+       x = "Estrato",
+       y = "Número de Personas") +
+  theme_minimal() + # Quitamos base_family = "Cambria"
+  theme(
+    plot.title = element_text(face = "bold", size = 11),
+    panel.grid.minor = element_blank()
+  ) +
+  # Quitamos family = "Cambria" aquí también
+  geom_text(stat = 'count', aes(label = ..count..), vjust = -0.5 , size= 2)
+
+
+#redes de apoyo
+# 1. Crear etiquetas y procesar datos
+df_plot <- df %>%
+  mutate(
+    sexo_label = ifelse(sexo == 1, "Hombre", "Mujer"),
+    ingreso_label = ifelse(ingreso == 1, "Ingreso alto", "Ingreso bajo"),
+    ayuda_label = ifelse(ayuda_material == 1, "Sí puede pedir ayuda", "No puede pedir ayuda")
+  )
+
+# 2. Calcular proporciones
+data_plot <- df_plot %>%
+  group_by(sexo_label, ingreso_label, ayuda_label) %>%
+  summarise(n = n(), .groups = "drop") %>%
+  group_by(sexo_label, ingreso_label) %>%
+  mutate(prop = n / sum(n))
+
+# 3. Gráfica con colores combinados
+ggplot(data_plot, aes(x = sexo_label, y = prop, fill = ayuda_label)) +
+  geom_bar(stat = "identity", position = "fill", width = 0.7) +
+  facet_wrap(~ ingreso_label) +
+  scale_fill_manual(values = c("No puede pedir ayuda" = "gray", 
+                               "Sí puede pedir ayuda" = "palevioletred")) +
+  labs(
+    title = "Acceso a redes de apoyo por sexo e ingreso",
+    x = "Sexo",
+    y = "Proporción (0-1)",
+    fill = "Ayuda material"
+  ) +
+  theme_minimal() + # Quitamos base_family = "Cambria"
+  theme(
+    plot.title = element_text(face = "bold", size = 12),
+    strip.text = element_text(face = "bold", size = 11),
+    legend.position = "bottom",
+    panel.grid.major.x = element_blank()
+  )
+
+
+```
+
+Adicionalmente, se incorporan variables de control como sexo, nivel educativo, estrato socioeconómico, tipo de vivienda y acceso a redes de apoyo, las cuales permiten caracterizar mejor la muestra. En términos generales, la población analizada se concentra en estratos medios y bajos, lo cual es consistente con la estructura socioeconómica de la comuna de Robledo. Además, al analizar el acceso a redes de apoyo material, se observa que los individuos con ingresos altos presentan una mayor proporción de personas que pueden solicitar ayuda material en comparación con aquellos de ingresos bajos. En cuanto al género, las diferencias son leves, entre los ingresos altos las mujeres muestran una ligera mayor capacidad de acceso a ayuda, mientras que en los ingresos bajos hombres y mujeres presentan proporciones muy similares. Esto sugiere que el nivel de ingreso es el principal factor asociado al acceso a redes de apoyo, mientras que las diferencias de género dependen del contexto económico.
+
+En conjunto, los resultados descriptivos sugieren que la percepción de machismo podría estar asociada con diferencias en la situación económica de los individuos. No obstante, dado que esta relación puede estar influenciada por múltiples factores simultáneos, es necesario avanzar hacia un análisis econométrico que permita aislar el efecto de interés y obtener conclusiones más robustas.
+
+# Modelo econométrico
+
+## Estimación del modelo por MPL
+
+Antes de estimar modelos no lineales como logit, resulta útil comenzar con un Modelo de Probabilidad Lineal (MPL) como punto de referencia. Este modelo permite obtener una primera aproximación a la relación entre la variable dependiente binaria y los regresores, facilitando la interpretación inicial de los signos y significancia de los coeficientes.
+
+Sin embargo, debido a sus limitaciones teóricas, posteriormente se contrastará con un modelo más adecuado para variables dicotómicas.
+
+Sacamos la media:
+
+```{r}
+#| echo: false
+mean(df$ingreso, na.rm = TRUE)
+
+```
+
+Estimación del modelo:
+
+```{r}
+#| echo: false
+
+edu_vars <- c("educ_1","educ_2","educ_3","educ_4","educ_5",
+              "educ_6","educ_7","educ_8","educ_9","educ_10")
+
+estrato_vars <- c("estrato_2","estrato_3","estrato_4",
+                  "estrato_5")
+
+vivi_vars <- c("vivienda_2","vivienda_3","vivienda_4",
+               "vivienda_5","vivienda_6")
+
+controles <- c("sexo","num_personas","leer","pension",
+               "hombre_lider","titulo_universitario",
+               "igualdad",
+              "satis_life",
+              "confianza",
+               "satis_economy")
+
+formula_mlp <- as.formula(paste(
+  "ingreso ~ machista +",
+  paste(c(edu_vars, estrato_vars, vivi_vars, controles), collapse = " + ")
+))
+
+modelo_mlp <- lm(formula_mlp, data = df)
+
+summary(modelo_mlp)
+```
+
+Con este modelo es probable la presencia de heterocedasticidad en los errores, ya que la varianza del término de error depende de la probabilidad estimada de la variable dependiente. En particular, cuando la variable dependiente es binaria, la varianza del error está dada por p(1-p), lo cual no es constante.
+
+En presencia de heterocedasticidad, los estimadores de Mínimos Cuadrados Ordinarios (MCO) siguen siendo insesgados, pero dejan de ser eficientes y los errores estándar pueden estar mal estimados, lo que afecta la validez de las inferencias estadísticas.
+
+Por esta razón, se corrigen los errores estándar utilizando estimadores robustos a la heterocedasticidad (tipo HC1), lo que permite obtener inferencias más confiables sobre la significancia de los coeficientes.
+
+```{r}
+#| include: false
+library(sandwich)
+library(lmtest)
+```
+
+```{r}
+coeftest(modelo_mlp, vcov = vcovHC(modelo_mlp, type = "HC1"))
+```
+
+### Interpretación
+
+La probabilidad promedio de reportar un ingreso alto/estable en la muestra es 62.2%, lo que sirve como punto de referencia para dimensionar los efectos.
+
+$machista$ (-0.084, p = 0.044): Quienes perciben que vivimos en una sociedad machista tienen una probabilidad 8.4 pp menor de reportar ingreso alto/estable respecto a quienes no lo perciben, pasando de 62.2% a aproximadamente 53.8%. Si bien el efecto es estadísticamente significativo, en términos prácticos representa una reducción moderada sobre una base ya relativamente alta. Aún así, este resultado es coherente con la hipótesis central del modelo: la precariedad económica y el reconocimiento del machismo como realidad estructural tienden a coexistir.
+
+$hombre\_lider$ (+0.162, p \< 0.001): Creer que los hombres son mejores líderes políticos que las mujeres se asocia a una probabilidad 16.2 pp mayor de ingreso alto, llevando la probabilidad a cerca del 78.4%. Este es el efecto de mayor magnitud entre las variables de género y, lejos de ser intuitivo, puede explicarse porque este tipo de creencias tiende a ser más prevalente en hogares con mayor poder adquisitivo y perfil socioeconómico más conservador, donde los roles de género tradicionales coexisten con mayor estabilidad material. No implica que el machismo genere ingreso, sino que cierto perfil socioeconómico concentra simultáneamente ambas características.
+
+$titulo\_universitario$ (-0.122, p = 0.004): Considerar que obtener un título universitario es más importante para el hombre que para la mujer se asocia a una probabilidad 12.2 pp menor de ingreso alto, bajando a cerca del 50.0% — prácticamente la mitad de la muestra al límite entre las dos categorías de ingreso.
+
+Estos tres coeficientes dibujan un patrón interesante donde no todas las actitudes de género apuntan en la misma dirección respecto al ingreso. La percepción del machismo sistémico y la desvalorización de la educación femenina se concentran en contextos de precariedad (ambas alejan la probabilidad de ingreso alto por debajo del promedio muestral), mientras que la creencia en el liderazgo masculino aparece más en hogares con mayor estabilidad económica, empujando la probabilidad muy por encima de la media. Esto sugiere que el machismo adopta formas distintas según el estrato social: en los estratos bajos se manifiesta como reconocimiento de una desigualdad vivida, y en los altos como naturalización de jerarquías de género que no se cuestionan precisamente porque no representan una amenaza necesariamente material.
+
+```{r}
+#| echo: false
+#| warning: false
+
+library(knitr)
+library(kableExtra)
+library(dplyr)
+
+# 1. Definición de los datos (la mantenemos igual)
+tabla_control1 <- data.frame(
+  Variable = c("Satisfacción económica", "Vivienda: Ocupante", "Vivienda: Anticresis",
+               "Estrato 4", "Estrato 5", "Vivienda: Usufructo",
+               "Educación: Doctorado", "Número de personas"),
+  Coef = c("+0.361", "-0.537", "+0.600", "+0.243",
+            "+0.154", "+0.141", "+0.261", "-0.022"),
+  p = c("<0.001 ***", "<0.001 ***", "<0.001 ***", "<0.001 ***",
+        "0.013 *", "0.025 *", "0.016 *", "0.041 *"),
+  Descripcion = c(
+    "A mayor satisfacción económica, mayor probabilidad de ingreso alto.",
+    "Ser ocupante de hecho reduce la probabilidad respecto al arriendo.",
+    "La anticresis exige capital anticipado: +60 pp respecto al arriendo.",
+    "Estrato 4 implica 24.3 pp más de probabilidad que estrato 1.",
+    "Efecto positivo y significativo respecto al estrato 1.",
+    "Vivienda cedida se asocia a mayor ingreso (ahorro en costos).",
+    "Tener doctorado eleva en 26.1 pp la probabilidad de ingreso alto.",
+    "Más personas en el hogar reduce la probabilidad (dilución)."
+  )
+)
+
+# 2. Renderizar la tabla (USA kbl sin especificar format para que sea automático)
+kbl(tabla_control1, 
+    booktabs = TRUE, 
+    align = c("l", "c", "c", "l"), 
+    caption = "Variables de Control Significativas — Modelo MLP") %>%
+  kable_styling(
+    latex_options = c("striped", "hold_position", "scale_down"),
+    bootstrap_options = c("striped", "hover"),
+    full_width = F,
+    font_size = 11
+  ) %>%
+  row_spec(0, bold = TRUE, color = "white", background = "#E45E9D")
+
+
+
+```
+
+
+## Estimación del modelo con logit
+
+Dado que la variable dependiente es de naturaleza binaria, se emplea un modelo de elección discreta para estimar la probabilidad de pertenecer al grupo de ingresos altos. En particular, se utiliza un modelo logit, el cual permite modelar de manera no lineal la relación entre las variables explicativas y la probabilidad de ocurrencia del evento de interés. Además, permite interpretar los resultados en términos de cambios en la probabilidad, lo cual resulta particularmente útil en el análisis de variables socioeconómicas lo que es confirmado por la literatura al utilizarlo para el análisis de variables en sociología, economía del comportamiento y estudios de género, lo cual es coherente con nuestro caso de análisis.
+
+```{r}
+#| echo: false
+#| warning: false
+logit_model <- glm(
+  formula_mlp,
+  data = df,
+  family = binomial(link = "logit")
+)
+
+summary(logit_model)
+```
+
+Aunque los coeficientes del modelo logit no pueden interpretarse directamente como cambios en probabilidades, su signo y significancia estadística permiten identificar la dirección de la relación. En particular, el coeficiente de la variable "machista" es negativo y estadísticamente significativo, lo que sugiere que una mayor percepción de machismo en la sociedad se asocia con una menor probabilidad de que los individuos perciban/reporten tener ingresos altos y/o estables. Este resultado es coherente con la hipótesis planteada y evidencia una correlación negativa entre percepciones culturales y bienestar económico. No obstante, la magnitud exacta de este efecto debe analizarse a través de los efectos marginales, dado el carácter no lineal del modelo.
+
+### Probabilidades predichas
+
+#### Probabilidades predichas en la muestra
+
+```{r}
+#| echo: false
+df$y_est_logit <- predict(logit_model, type = "response")
+
+summary(df$y_est_logit)
+```
+
+Las probabilidades predichas del modelo logit sobre toda la muestra se encuentran dentro del rango teórico esperado, entre 0 y 1, lo que confirma la adecuación de este modelo para variables dependientes binarias, esto es importante tomando en cuenta que se observa que la probabilidad promedio de que los individuos se vean en una situación económicamente estable es de aproximadamente del 62.2% según el modelo.
+
+```{r}
+#| warning: false
+#| include: false
+# Crear una fila con promedios de TODAS las variables
+newdata_base <- df %>%
+  summarise(across(everything(), mean, na.rm = TRUE))
+
+# Crear dos escenarios: machista = 0 y machista = 1
+newdata_pred <- newdata_base[rep(1, 2), ]
+newdata_pred$machista <- c(0, 1)
+
+# Predecir probabilidades
+prob <- predict(logit_model, newdata = newdata_pred, type = "response")
+
+prob
+diff(prob)
+
+
+```
+
+#### Probabilidades predichas para un individuo representativo
+
+```{r}
+#| echo: false
+#| warning: false
+library(dplyr)
+library(knitr)
+library(kableExtra)
+
+# 1. Aseguramos que existan los objetos necesarios
+# (Asumiendo que 'prob' ya fue calculado arriba, si no, asegúrate de correr esa parte)
+
+# Crear tabla con resultados base
+tabla_prob <- data.frame(
+  Escenario = c("No percibe machismo", "Percibe machismo"),
+  Probabilidad = prob
+)
+
+# 2. CREAR tabla_diff (Esto es lo que te faltaba en el bloque)
+tabla_diff <- data.frame(
+  Escenario = "Diferencia (efecto marginal)",
+  Probabilidad = diff(prob)
+)
+
+# 3. Unimos las tablas
+tabla_final <- bind_rows(tabla_prob, tabla_diff)
+
+# 4. Renderizar la tabla (Híbrida para PDF y HTML)
+tabla_final %>%
+  kbl(booktabs = TRUE, 
+      digits = 3, 
+      row.names = FALSE, 
+      align = "lc", 
+      caption = "Probabilidades predichas según percepción de machismo") %>%
+  kable_styling(
+    latex_options = c("striped", "hold_position"),
+    bootstrap_options = c("striped", "hover"),
+    full_width = F,
+    font_size = 11,
+    position = "center"
+  ) %>%
+  row_spec(0, bold = TRUE, color = "white", background = "#E45E9D")
+
+```
+
+Para complementar el análisis, se estiman probabilidades predichas para un individuo representativo, construido a partir de los valores promedio de las variables explicativas, variando únicamente la percepción de machismo.
+
+Los resultados muestran que la probabilidad de pertenecer al grupo de ingresos altos es de aproximadamente 77.2% para quienes no perciben la sociedad como machista, mientras que esta probabilidad se reduce a 67.3% para quienes sí tienen dicha percepción. Esto implica una disminución cercana a 9.9 puntos porcentuales, lo cual es consistente con los resultados obtenidos en los efectos marginales.
+
+### Efectos marginales
+
+#### Efecto marginal promedio
+
+Se estima el efecto marginal promedio sobre las variables que salieron estadisticamente significativas
+
+```{r}
+#| echo: false
+#| warning: false
+
+library(kableExtra)
+library(dplyr)
+
+
+ame_filtrado <- avg_slopes(logit_model) %>%
+  filter(term %in% c("machista", 
+                     "estrato_4", 
+                     "vivienda_4", 
+                     "num_personas", 
+                     "hombre_lider", 
+                     "titulo_universitario", 
+                     "satis_economy"))
+
+# 1. Preparar los datos (igual que antes)
+ame_bonito <- ame_filtrado %>%
+  mutate(term = case_when(
+    term == "machista" ~ "Percepción de Machismo",
+    term == "estrato_4" ~ "Estrato Socioeconómico 4",
+    term == "vivienda_4" ~ "Vivienda: Usufructo",
+    term == "num_personas" ~ "Número de Personas en Hogar",
+    term == "hombre_lider" ~ "Creencia: Hombre Líder Político",
+    term == "titulo_universitario" ~ "Título Universitario",
+    term == "satis_economy" ~ "Satisfacción Económica",
+    TRUE ~ term
+  ))
+
+# 2. Renderizar la tabla híbrida
+ame_bonito %>%
+  dplyr::select(term, estimate, std.error, p.value) %>%
+  # Quitamos format="latex" para que sea automático
+  kbl(booktabs = TRUE, 
+      digits = 3,
+      col.names = c("Variable", "Efecto (AME)", "Error Est.", "p-valor"),
+      caption = "Efectos Marginales Promedio (AME) - Modelo Logit",
+      align = "lccc") %>%
+  kable_styling(
+    # 'latex_options' solo se aplicará en PDF, 'bootstrap_options' solo en HTML
+    latex_options = c("striped", "hold_position"),
+    bootstrap_options = c("striped", "hover", "condensed"),
+    full_width = F,
+    font_size = 11,
+    position = "center"
+  ) %>%
+  # El color de fondo se aplica correctamente en ambos
+  row_spec(0, bold = TRUE, color = "white", background = "#E45E9D") %>%
+  column_spec(1, bold = TRUE)
+```
+
+Los efectos marginales promedio permiten interpretar directamente cómo cambia la probabilidad de tener ingresos altos ante variaciones en las variables explicativas, manteniendo constantes las demás características.
+
+Analizando la variable central "machista" vemos que presenta un efecto marginal de -0.0877, estadísticamente significativo (p \< 0.05). Esto indica que los individuos que perciben la sociedad como machista tienen, en promedio, 8.8 puntos porcentuales menos de probabilidad de pertenecer al grupo de ingresos altos, en comparación con quienes no tienen esta percepción.
+
+En cuanto a las demas variables socioeconómicas, se observa que pertenecer al estrato 4 incrementa la probabilidad de ingresos altos en aproximadamente 23.6 puntos porcentuales, mientras que reportar una buena satisfacción económica aumenta esta probabilidad en 34.1 puntos porcentuales, siendo este uno de los efectos más grandes del modelo.
+
+#### Efecto marginal en el promedio
+
+De igual manera, se estima el efecto marginal en el promedio unicamente sobre las variables que salieron estadisticamente significativas:
+
+```{r}
+#| echo: false
+#| warning: false
+
+library(kableExtra)
+library(dplyr)
+
+# 1. Calculamos y filtramos
+mem_tabla <- slopes(logit_model, newdata = "mean") %>%
+  filter(term %in% c("machista", "estrato_4", "vivienda_4", 
+                     "num_personas", "hombre_lider", 
+                     "titulo_universitario", "satis_economy")) %>%
+  mutate(term = case_when(
+    term == "machista" ~ "Percepción de Machismo",
+    term == "estrato_4" ~ "Estrato Socioeconómico 4",
+    term == "vivienda_4" ~ "Vivienda: Usufructo",
+    term == "num_personas" ~ "Número de Personas en Hogar",
+    term == "hombre_lider" ~ "Creencia: Hombre Líder Político",
+    term == "titulo_universitario" ~ "Título Universitario",
+    term == "satis_economy" ~ "Satisfacción Económica",
+    TRUE ~ term
+  ))
+
+# 2. Renderizar tabla híbrida
+mem_tabla %>%
+  dplyr::select(term, estimate, std.error, p.value) %>%
+  kbl(booktabs = TRUE, 
+      digits = 3,
+      col.names = c("Variable", "Efecto (MEM)", "Error Est.", "p-valor"),
+      caption = "Efectos Marginales en el Promedio (MEM) - Individuo Típico",
+      align = "lccc") %>%
+  kable_styling(
+    latex_options = c("striped", "hold_position"),
+    bootstrap_options = c("striped", "hover"),
+    full_width = F,
+    font_size = 11
+  ) %>%
+  row_spec(0, bold = TRUE, color = "white", background = "#E45E9D") %>%
+  column_spec(1, bold = TRUE)
+```
+
+Los efectos marginales evaluados en el promedio permiten analizar cómo cambia la probabilidad de tener ingresos altos para un individuo representativo de la muestra.
+
+En línea con los resultados anteriores, la variable $machista$ presenta un efecto negativo y significativo de -0.1101 (p \< 0.05). Esto implica que, para un individuo promedio, percibir la sociedad como machista reduce en aproximadamente 11 puntos porcentuales la probabilidad de tener ingresos altos, lo cual refuerza la evidencia de una relación negativa entre factores culturales y condiciones económicas.
+
+Aunque ambos efectos marginales presentan resultados consistentes en signo y significancia, se observan diferencias en magnitud. Esto se debe a que, en modelos no lineales como el logit, los efectos marginales dependen del nivel de las variables explicativas. En este sentido, el efecto marginal promedio (AME) captura la heterogeneidad existente en la muestra al promediar los efectos individuales, mientras que el efecto marginal en el promedio (MEM) evalúa el impacto sobre un individuo representativo construido a partir de los valores medios de las variables. Para terminos del análisis posterior, se decidió tomar en cuenta solo los resultados del AME, dada la poca interpretabilidad de los resultados al usar el efecto marginal en el promedio cuando las variables eplicativas son tambien bianrias o categóricas, como lo son para este caso particular del estudio.
+
+### Ajuste del modelo: Pseudo R²
+
+```{r}
+#| echo: false
+pseudoR2 <- 1 - (logit_model$deviance / logit_model$null.deviance)
+pseudoR2
+
+```
+
+El resultado indica que el modelo presenta un ajuste moderado, explicando una proporción relevante (aunque no muy alta) de la variabilidad en la probabilidad de que los individuos perciban/reporten ingresos altos. 
+
+
+### Curva ROC
+
+```{r}
+#| echo: false
+#| warning: false
+library(pscl)
+library(ROCR)
+
+pred <- prediction(df$y_est_logit, df$ingreso)
+perf <- performance(pred, "tpr", "fpr")
+
+plot(perf)
+abline(a=0, b=1, lty=2)
+
+performance(pred, "auc")@y.values
+```
+
+La curva ROC muestra la capacidad del modelo para discriminar entre individuos con ingresos altos y bajos. El área bajo la curva (AUC) es de 0.7743, lo que indica un buen nivel de capacidad predictiva. En términos prácticos, esto implica que existe aproximadamente un 77.4% de probabilidad de que el modelo asigne una mayor probabilidad de ingreso alto a un individuo que efectivamente pertenece a este grupo, en comparación con uno de ingresos bajos.
+
+
+### Validación: Test de Hosmer-Lemeshow
+
+```{r}
+#| echo: false
+library(ResourceSelection)
+
+hoslem.test(df$ingreso, fitted(logit_model))
+```
+
+El test de Hosmer-Lemeshow arroja un p-valor de 0.036, lo que sugiere evidencia de que el modelo no se ajusta perfectamente a los datos. Sin embargo, dado que el test es altamente sensible al tamaño de muestra (1156 para nuestro caso puntuasl), tendiendo a rechazar el buen ajuste incluso ante desviaciones menores, no se invalida por completo el modelo, especialmente considerando que otras métricas, como la curva ROC, evidencian una buena capacidad discriminatoria.
+
+
+# Resultados
+
+Los resultados del modelo Logit revelan un patrón que se sostiene en ambas especificaciones y que resulta económicamente relevante. Por un lado, percibir que la sociedad es machista se asocia con una reducción de 8.8 puntos porcentuales en la probabilidad de reportar ingresos altos (p = 0.025), lo que sugiere que el reconocimiento del machismo como realidad estructural tiende a coexistir con condiciones materiales de mayor precariedad. Por otro lado, creer que los hombres son mejores líderes políticos que las mujeres se asocia con un aumento de 17.1 puntos porcentuales en esa misma probabilidad (p \< 0.001), siendo la variable de género con mayor efecto en el modelo.
+
+El hecho de que este efecto persista después de controlar por estrato, tipo de vivienda, educación y satisfacción económica indica que la percepción del machismo tiene un efecto propio e independiente de la posición material del hogar. Esto refuerza la hipótesis de que las actitudes de género constituyen un canal autónomo a través del cual la desigualdad se reproduce, y no un mero síntoma de condiciones previas, al menos dentro del territorio de análisis del presente trabajo.
+
+Lo que los datos de Robledo sugieren, entonces, es que la relación entre género e ingreso opera en dos direcciones simultáneas que el modelo captura con claridad. Por un lado, percibir el machismo como realidad estructural se asocia a menor ingreso, es decir, el reconocimiento de la desigualdad coexiste con su padecimiento material. Y, por otro lado, creer en el liderazgo masculino se asocia a mayor ingreso, esto no quiere decir que esa creencia genera prosperidad, sino que más bien la acompaña, actuando como marcador de un perfil socioeconómico donde las jerarquías de género se naturalizan precisamente porque no representan una amenaza. Que ambos efectos sean robustos, significativos y apunten en direcciones opuestas no es una contradicción estadística sino una fotografía de cómo el machismo se distribuye de forma diferenciada a lo largo de la estructura social de la comuna.
+
+
+# Conclusiones
+
+El presente ejercicio analizó la relación entre la percepción de machismo y el nivel de ingreso en la Comuna de Robledo de Medellín, utilizando un Modelo de Probabilidad Lineal y un modelo Logit , ambos con errores robustos y aplicados sobre datos de la Encuesta de Calidad de Vida.
+
+Quizás el hallazgo más sugerente de este ejercicio es que ambos efectos apunten en direcciones opuestas sin ser contradictorios: el machismo adopta formas distintas según el estrato, y los datos lo capturan con notable claridad. En los hogares de menor ingreso se manifiesta como reconocimiento de una desigualdad vivida y experimentada materialmente, lo que explica la asociación negativa con el ingreso. En los hogares con mayor estabilidad económica, en cambio, aparece como naturalización de jerarquías de género que no se cuestionan precisamente porque no representan una amenaza para su posición. Lo que hace este resultado particularmente valioso es que no fue impuesto por el modelo sino que emergió espontáneamente de los datos de la Comuna de Robledo: quienes se benefician del orden existente tienen menos incentivos para cuestionarlo, y esa convicción sobre el liderazgo masculino termina actuando como marcador de un perfil socioeconómico acomodado, no como causa de su prosperidad. Es el tipo de hallazgo que raramente se encuentra con datos de encuesta a nivel comunal, y que abre preguntas que vale la pena seguir explorando.
+
+En el plano teórico, los hallazgos son coherentes con el marco propuesto por Galindo-Silva y Herrera-Idárraga (2023) y con la noción de machismo allocation de Cuesta (2006), que sugieren que la desigualdad de género no es solo un fenómeno cultural, sino que se traduce en mecanismos económicos concretos que afectan el bienestar material de los hogares.
+
+En conjunto, los resultados invitan a tratar la desigualdad de género no como una variable de contexto en los análisis de bienestar, sino como un determinante estructural con efectos económicos propios. Para la Comuna de Robledo (y por extensión para otros territorios urbanos con características similares) esto implica que las políticas de reducción de pobreza y mejora del ingreso que ignoren las dinámicas de género estarán interviniendo de manera incompleta sobre los factores que reproducen la precariedad.
+
+La evidencia comparada con otros escenarios ofrece orientaciones concretas en materia de políticas de bienestar. En primera instancia, se tiene que, ampliar el acceso a servicios de cuidado infantil asequibles ha mostrado resultados sólidos; por ejemplo, en Río de Janeiro, un programa de guarderías públicas gratuitas para familias de bajos ingresos incrementó el empleo de las madres del 36% al 46% (Banco Mundial, 2024). En la misma línea, Uruguay implementó licencias parentales transferibles entre padre y madre, lo que no solo promueve la corresponsabilidad en el hogar sino que reduce la discriminación en la contratación femenina (Salvador, 2015, citado en AECID, s.f.). A escala local, Bogotá avanza en redes de servicios de cuidado que integran atención a la primera infancia, personas mayores, salud y empleo (ONU Mujeres, 2025), un modelo que es replicable en los barrios de mayor precariedad de Robledo. En síntesis, los hallazgos de este trabajo respaldan que cualquier estrategia de mejora de las condiciones de vida en la comuna deberá incorporar la perspectiva de género como eje articulador de la política social, y no como un componente adicional.
+
+# Trabajo de campo - Encuesta
+
+Como un componente adicional de la investigación, se integró un apartado para el instrumento de encuesta con el objetivo de realizar una triangulación de información y verificar si los hallazgos del modelo encuentran respaldo en la percepción actual del territorio. Estos resultados parciales se recolectaron hasta el 29 de abril de 2026 y cuentan con una muestra total de 19 observaciones procesadas. El análisis representa una aproximación preliminar válida estrictamente para este grupo específico en la Comuna 7 de Medellín.
+
+La muestra presenta una distribución compuesta por 10 hombres y 9 mujeres, lo que permite una visión equilibrada del fenómeno en este corte. Un total de 10 de las 19 personas encuestadas manifestaron percibir un nivel de machismo situado entre los niveles 3 y 4 de la escala (del 1-5). Esto significa que más de la mitad de la muestra identifica una presencia clara de estas dinámicas en su entorno cotidiano. Al observar los promedios por género, las mujeres reportan una percepción de machismo de 2.89 frente a la de los hombres que es de 2.4, lo que refuerza que quienes experimentan las brechas tienden a identificarlas con mayor claridad.
+
+Este hallazgo guarda una estrecha relación con los resultados obtenidos en el modelo, donde la percepción de vivir en una sociedad machista mostró una asociación negativa con la probabilidad de reportar ingresos altos. Por otro lado, la encuesta arroja una validación contundente respecto al impacto de la educación, ya que 16 de los 19 participantes consideran que priorizar el estudio del hombre sobre el de la mujer afecta de manera negativa la economía del hogar. Este resultado interactúa directamente con el coeficiente de -13.0 pp obtenido en la regresión y confirma que la comunidad percibe la desvalorización educativa femenina como un freno real para la prosperidad familiar.
+
+En cuanto al liderazgo y la toma de decisiones, el 47.4% de los encuestados considera que en los hogares con mayores ingresos de Robledo se prefiere que sea el hombre quien tome las decisiones finales. En el modelo logit, esta creencia en el liderazgo masculino fue el predictor positivo más fuerte con un impacto de +17.1 pp. La encuesta confirma que dicho sesgo persiste en casi la mitad de la población consultada, lo que demuestra que las dinámicas de poder identificadas por el modelo son realidades presentes en el pensamiento de los habitantes y otorgan mayor solidez al análisis general.
+
+Finalmente, se exploraron los motivos multidimensionales que limitan el flujo de dinero en los hogares mediante una pregunta donde los participantes podían seleccionar varias opciones a la vez. La carga de cuidado, entendida como la falta de tiempo de las mujeres por labores domésticas, fue el factor más crítico al ser mencionado por el 73.7% de los encuestados. Le siguen la falta de autonomía económica de la mujer con un 47.4% y el control masculino sobre el gasto con un 26.3%. Esta acumulación de respuestas evidencia que los habitantes de Robledo no ven la desigualdad como un problema aislado, sino como un sistema de causas que restringen el bienestar material de la comuna.
+
+## Graficos de la encuesta
+
+```{r}
+#| include: false
+library(readr)
+encuesta <- read_csv("encuesta.csv")
+
+```
+
+```{r}
+#| echo: false
+#| warning: false
+#| fig-height: 15
+#| fig-width: 8
+
+library(ggplot2)
+library(dplyr)
+library(tidyr)
+library(stringr)
+
+encuesta_fix <- tryCatch({
+    # Intento 1: Punto y coma (sep = ";")
+    read.csv("encuesta.csv", sep = ";", fileEncoding = "UTF-8", check.names = FALSE)
+  }, error = function(e) {
+    # Intento 2: Coma (sep = ",") si el anterior falla
+    read.csv("encuesta.csv", sep = ",", fileEncoding = "UTF-8", check.names = FALSE)
+  })
+
+
+
+# 1. Selección manual usando dplyr::select para evitar el conflicto
+encuesta_focalizada <- encuesta_fix %>%
+  # El prefijo dplyr:: soluciona el error de "argumentos no usados"
+  dplyr::select(
+    machismo = contains("sociedad machista"),
+    prioridad_hogar = contains("priorizado el estudio"),
+    afecta_ingreso = contains("afecta el ingreso"),
+    frena_dinero = contains("frena más el dinero")
+  ) %>%
+  mutate(across(everything(), as.character))
+
+# 2. Preparar los datos (Mantenemos tu lógica que está muy bien)
+encuesta_larga <- encuesta_focalizada %>%
+  separate_rows(frena_dinero, sep = ";") %>% 
+  pivot_longer(cols = everything(), names_to = "Pregunta", values_to = "Respuesta") %>%
+  filter(!is.na(Respuesta) & Respuesta != "" & Respuesta != " ") %>%
+  mutate(
+    Pregunta = case_when(
+      Pregunta == "machismo" ~ "¿Qué tanto cree que vivimos en una sociedad machista? (1-5)",
+      Pregunta == "prioridad_hogar" ~ "¿Se ha priorizado el estudio de hombres en su hogar?",
+      Pregunta == "afecta_ingreso" ~ "¿Cómo afecta el ingreso priorizar la educación del hombre?",
+      Pregunta == "frena_dinero" ~ "¿Qué frena más el dinero en Robledo?",
+      TRUE ~ Pregunta
+    ),
+    Respuesta = str_wrap(Respuesta, width = 35)
+  )
+
+# 3. Gráfico Final
+ggplot(encuesta_larga, aes(y = Respuesta, fill = Respuesta)) +
+  geom_bar() +
+  facet_wrap(~Pregunta, scales = "free", ncol = 1) + 
+  theme_minimal() +
+  labs(
+    title = "Análisis de la encuesta",
+    subtitle = "Resultados seleccionados - Comuna 7, Robledo",
+    x = "Cantidad de Respuestas", y = ""
+  ) +
+  scale_fill_manual(values = rep(c("#E45E9D", "#C2185B", "#F19CBB", "#880E4F", "#F8BBD0"), 9)) +
+  theme(
+    legend.position = "none",
+    strip.text = element_text(size = 9, face = "bold", color = "#880E4F"),
+    axis.text.y = element_text(size = 8, lineheight = 0.8),
+    panel.spacing = unit(2, "lines")
+  )
+```
+
+::: {#ref .references .hanging-indent}
+Para ver la encuesta: [Link encuesta](https://forms.office.com/pages/responsepage.aspx?id=XrX3mb6ce0aBQ5GXgpGK-wW_o4HfyzVGtUmbCjIHSjdUQjBOM1c2VDcxUFdBOUdRMzBCS0RYQVIzNy4u&route=shorturl)
+
+Para ver el blog [link a nuestro blog](https://epiedrahitarua.github.io/Trabajo-sobre-machismo-y-bienestar-economico/)
+
+:::
+
+# Referencias
+
+::: {#ref .references .hanging-indent}
+Agencia Española de Cooperación Internacional para el Desarrollo \[AECID\]. (s.f.). *Avanzando hacia la corresponsabilidad en los cuidados*. Intercoonecta. [Link al PDF](https://intercoonecta.aecid.es/Gestin%20del%20conocimiento/Avanzando%20hacia%20la%20corresponsabilidad%20en%20los%20cuidados.pdf)
+
+Banco Mundial. (2024). La pobreza no es neutral ante el género en América Latina y el Caribe. *World Bank Blogs*. [Ver blog](https://blogs.worldbank.org/es/latinamerica/la-pobreza-no-es-neutral-ante-el-genero-en-america-latina-y-el-caribe)
+
+Cuesta, J. (2006). The distributive consequences of machismo: A simulation analysis of intra-household discrimination. *Journal of International Development*, 18(8), 1065–1080.
+
+DANE. (2025). *Encuesta Nacional de Uso del Tiempo (ENUT) 2024-2025*. Departamento Administrativo Nacional de Estadística.
+
+Galindo-Silva, H., & Herrera-Idárraga, P. (2023). *Culture, gender, and labor force participation: Evidence from Colombia* (arXiv:2307.08869). Pontificia Universidad Javeriana.
+
+Likert, R. (1932). A technique for the measurement of attitudes. *Archives of Psychology*, 140, 1–55.
+
+Norman, G. (2010). Likert scales, levels of measurement and the “laws” of statistics. *Advances in Health Sciences Education*, 15(5), 625–632. <https://doi.org/10.1007/s10459-010-9222-y>
+
+Observatorio de Asuntos de Mujer y Género, Secretaría de las Mujeres de Antioquia. (2024). *Informe sobre violencias contra las mujeres en Antioquia 2023 y 2024*. Gobernación de Antioquia.
+
+ONU Mujeres. (2025). *En América Latina reconstruyendo las economías en torno al cuidado*. [Link ONU](https://www.unwomen.org/es/noticias/reportaje/2025/06/en-america-latina-no-solo-reconocemos-el-trabajo-de-cuidados-estamos-reconstruyendo-las-economias-en-torno-a-el)
+:::
